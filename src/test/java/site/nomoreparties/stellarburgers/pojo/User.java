@@ -1,4 +1,4 @@
-package pojo;
+package site.nomoreparties.stellarburgers.pojo;
 
 import lombok.*;
 
