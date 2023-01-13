@@ -10,6 +10,8 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     private String email;
