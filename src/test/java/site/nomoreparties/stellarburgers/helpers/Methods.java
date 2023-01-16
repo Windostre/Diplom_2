@@ -1,5 +1,6 @@
 package site.nomoreparties.stellarburgers.helpers;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import site.nomoreparties.stellarburgers.pojo.User;
@@ -10,7 +11,7 @@ import static io.restassured.RestAssured.given;
  * Вспомогательльные тестовые методы
  */
 
-public class Methods extends Constants{
+public class Methods extends Constants {
     protected ValidatableResponse createUser(User user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
@@ -27,6 +28,16 @@ public class Methods extends Constants{
                 .header("Content-type", "application/json")
                 .when()
                 .delete(API_USER_DELETE)
+                .then();
+        return response;
+    }
+
+    protected ValidatableResponse createUserString(String user) {
+        ValidatableResponse response = given().log().all()
+                .header("Content-type", "application/json")
+                .body(user)
+                .when()
+                .post(API_USER_REGISTER)
                 .then();
         return response;
     }

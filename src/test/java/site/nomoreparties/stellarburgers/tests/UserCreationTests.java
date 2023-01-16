@@ -10,12 +10,13 @@ import site.nomoreparties.stellarburgers.pojo.User;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
 public class UserCreationTests extends Methods {
     private String refreshToken;
     private String accessToken;
-    Utils utils = new Utils();
-    User basicUserData = utils.generateRandomUser();
+    private Utils utils = new Utils();
+    private User basicUserData = utils.generateRandomUser();
 
 
     @Before
@@ -38,8 +39,8 @@ public class UserCreationTests extends Methods {
         accessToken = response.extract().path("accessToken").toString().substring(7);
         refreshToken = response.extract().path("refreshToken");
 
-        Assert.assertEquals(200, response.extract().statusCode());
-        Assert.assertEquals(true, response.extract().path("success"));
+        assertEquals(200, response.extract().statusCode());
+        assertEquals(true, response.extract().path("success"));
         assertThat(accessToken, notNullValue());
         assertThat(refreshToken, notNullValue());
 
@@ -50,9 +51,9 @@ public class UserCreationTests extends Methods {
         basicUserData.setEmail(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("Email, password and name are required fields", response.extract().path("message"));
 
     }
 
@@ -61,9 +62,9 @@ public class UserCreationTests extends Methods {
         basicUserData.setEmail("");
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("Email, password and name are required fields", response.extract().path("message"));
 
     }
 
@@ -72,9 +73,9 @@ public class UserCreationTests extends Methods {
         basicUserData.setPassword(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("Email, password and name are required fields", response.extract().path("message"));
 
     }
 
@@ -83,9 +84,9 @@ public class UserCreationTests extends Methods {
         basicUserData.setPassword("");
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("Email, password and name are required fields", response.extract().path("message"));
 
     }
 
@@ -94,9 +95,9 @@ public class UserCreationTests extends Methods {
         basicUserData.setName(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("Email, password and name are required fields", response.extract().path("message"));
 
     }
 
@@ -105,43 +106,34 @@ public class UserCreationTests extends Methods {
         basicUserData.setName("");
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("Email, password and name are required fields", response.extract().path("message"));
 
     }
 
     @Test
     public void createUserFailDublicateEmailReturnStatus403forbidden() {
         createUser(basicUserData);
-        User dublicateUser = new User().builder()
-                .email(basicUserData.getEmail())
-                .password(utils.generateRandomPassword())
-                .name(utils.generateRandomName())
-                .build();
+        User dublicateUser = new User(basicUserData.getEmail(), utils.generateRandomPassword(),utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
-        Assert.assertEquals(403, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-        Assert.assertEquals("User already exists", response.extract().path("message"));
-
+        assertEquals(403, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+        assertEquals("User already exists", response.extract().path("message"));
     }
 
     @Test
     public void createUserSuccessDublicateNameReturnStatus200ok() {
         createUser(basicUserData);
-        User dublicateUser = new User().builder()
-                .email(utils.generateRandomEmail())
-                .password(utils.generateRandomPassword())
-                .name(basicUserData.getName())
-                .build();
+        User dublicateUser = new User(utils.generateRandomEmail(), utils.generateRandomPassword(),basicUserData.getName());
         ValidatableResponse response = createUser(dublicateUser);
 
         accessToken = response.extract().path("accessToken").toString().substring(7);
         refreshToken = response.extract().path("refreshToken");
 
-        Assert.assertEquals(200, response.extract().statusCode());
-        Assert.assertEquals(true, response.extract().path("success"));
+        assertEquals(200, response.extract().statusCode());
+        assertEquals(true, response.extract().path("success"));
         assertThat(accessToken, notNullValue());
         assertThat(refreshToken, notNullValue());
 
@@ -150,18 +142,14 @@ public class UserCreationTests extends Methods {
     @Test
     public void createUserSuccessDublicatePasswordReturnStatus200ok() {
         createUser(basicUserData);
-        User dublicateUser = new User().builder()
-                .email(utils.generateRandomEmail())
-                .password(basicUserData.getPassword())
-                .name(utils.generateRandomName())
-                .build();
+        User dublicateUser = new User(utils.generateRandomEmail(), basicUserData.getPassword(),utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
         accessToken = response.extract().path("accessToken").toString().substring(7);
         refreshToken = response.extract().path("refreshToken");
 
-        Assert.assertEquals(200, response.extract().statusCode());
-        Assert.assertEquals(true, response.extract().path("success"));
+        assertEquals(200, response.extract().statusCode());
+        assertEquals(true, response.extract().path("success"));
         assertThat(accessToken, notNullValue());
         assertThat(refreshToken, notNullValue());
 
@@ -172,9 +160,44 @@ public class UserCreationTests extends Methods {
         basicUserData.setPassword(utils.generateShortPassword());
         ValidatableResponse response = createUser(basicUserData);
 
-        Assert.assertNotEquals(200, response.extract().statusCode());
-        Assert.assertEquals(false, response.extract().path("success"));
-       // Assert.assertEquals("User already exists", response.extract().path("message"));
+        assertNotEquals(200, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+
+    }
+
+    @Test
+    public void createUserValidationFailEmailOmittedReturnStatus403forbidden() {
+        User user = new User()
+                .addPassword(basicUserData.getPassword())
+                .addName(basicUserData.getName());
+        ValidatableResponse response = createUserString(user.buildJSONToString());
+
+        assertNotEquals(200, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+
+    }
+
+    @Test
+    public void createUserValidationFailPasswordOmittedReturnStatus403forbidden() {
+        User user = new User()
+                .addEmail(basicUserData.getEmail())
+                .addName(basicUserData.getName());
+        ValidatableResponse response = createUserString(user.buildJSONToString());
+
+        assertNotEquals(200, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
+
+    }
+
+    @Test
+    public void createUserValidationFailNameOmittedReturnStatus403forbidden() {
+        User user = new User()
+                .addEmail(basicUserData.getEmail())
+                .addPassword(basicUserData.getPassword());
+        ValidatableResponse response = createUserString(user.buildJSONToString());
+
+        assertNotEquals(200, response.extract().statusCode());
+        assertEquals(false, response.extract().path("success"));
 
     }
 
