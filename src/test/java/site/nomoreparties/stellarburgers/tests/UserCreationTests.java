@@ -21,7 +21,7 @@ public class UserCreationTests extends Methods {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
+        RestAssured.baseURI = BURGER_BASE_URI;
     }
 
     @After

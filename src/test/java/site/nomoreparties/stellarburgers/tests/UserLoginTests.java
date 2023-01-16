@@ -12,7 +12,7 @@ import site.nomoreparties.stellarburgers.pojo.User;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
-public class LoginTests extends Methods {
+public class UserLoginTests extends Methods {
     private String refreshToken;
     private String accessToken;
     Utils utils = new Utils();
@@ -20,7 +20,7 @@ public class LoginTests extends Methods {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
+        RestAssured.baseURI = BURGER_BASE_URI;
         ValidatableResponse response = createUser(basicUserData);
         accessToken = response.extract().path("accessToken");
     }
