@@ -1,8 +1,6 @@
 package site.nomoreparties.stellarburgers.helpers;
 
-import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
 import site.nomoreparties.stellarburgers.pojo.User;
 
 import static io.restassured.RestAssured.given;
@@ -27,7 +25,7 @@ public class Methods extends Constants {
                 .auth().oauth2(accessToken)
                 .header("Content-type", "application/json")
                 .when()
-                .delete(API_USER_DELETE)
+                .delete(API_USER_DATA)
                 .then();
         return response;
     }
@@ -50,6 +48,27 @@ public class Methods extends Constants {
                 .when()
                 .post(API_USER_LOGIN)
                 .then();
+        return response;
+    }
+
+    protected ValidatableResponse updateUserData(User userData, String accessToken) {
+        ValidatableResponse response = given().log().all()
+                   .auth().oauth2(accessToken)
+                   .header("Content-type", "application/json")
+                   .body(userData.buildJSONToString())
+                   .when()
+                   .patch(API_USER_DATA)
+                   .then().log().all();
+        return response;
+    }
+
+    protected ValidatableResponse logout(String refreshToken) {
+        ValidatableResponse response = given().log().all()
+                .header("Content-type", "application/json")
+                .body("{\"token\": " + "\"" + refreshToken + "\"}")
+                .when()
+                .post(API_USER_LOGOUT)
+                .then().log().all();
         return response;
     }
 }
