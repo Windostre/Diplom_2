@@ -32,12 +32,23 @@ public class Methods extends Constants {
         return response;
     }
 
-    protected ValidatableResponse createUserString(String user) {
+    protected ValidatableResponse createUserString(User user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
-                .body(user)
+                .body(user.buildJSONToString())
                 .when()
                 .post(API_USER_REGISTER)
+                .then();
+        return response;
+    }
+
+    protected ValidatableResponse login(String accessToken, User loginData) {
+        ValidatableResponse response = given().log().all()
+                .auth().oauth2(accessToken)
+                .header("Content-type", "application/json")
+                .body(loginData.buildJSONToString())
+                .when()
+                .post(API_USER_LOGIN)
                 .then();
         return response;
     }
