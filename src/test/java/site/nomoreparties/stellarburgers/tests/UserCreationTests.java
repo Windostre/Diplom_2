@@ -3,20 +3,20 @@ package site.nomoreparties.stellarburgers.tests;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.*;
-import site.nomoreparties.stellarburgers.helpers.Methods;
+import site.nomoreparties.stellarburgers.clients.user.UserSteps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
-import site.nomoreparties.stellarburgers.pojo.User;
+import site.nomoreparties.stellarburgers.clients.user.UserData;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
-public class UserCreationTests extends Methods {
+public class UserCreationTests extends UserSteps {
     private String refreshToken;
     private String accessToken;
     private Utils utils = new Utils();
-    private User basicUserData = utils.generateRandomUser();
+    private UserData basicUserData = utils.generateRandomUser();
 
 
     @Before
@@ -115,7 +115,7 @@ public class UserCreationTests extends Methods {
     @Test
     public void createUserFailDublicateEmailReturnStatus403forbidden() {
         createUser(basicUserData);
-        User dublicateUser = new User(basicUserData.getEmail(), utils.generateRandomPassword(),utils.generateRandomName());
+        UserData dublicateUser = new UserData(basicUserData.getEmail(), utils.generateRandomPassword(),utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
         assertEquals(403, response.extract().statusCode());
@@ -126,7 +126,7 @@ public class UserCreationTests extends Methods {
     @Test
     public void createUserSuccessDublicateNameReturnStatus200ok() {
         createUser(basicUserData);
-        User dublicateUser = new User(utils.generateRandomEmail(), utils.generateRandomPassword(),basicUserData.getName());
+        UserData dublicateUser = new UserData(utils.generateRandomEmail(), utils.generateRandomPassword(),basicUserData.getName());
         ValidatableResponse response = createUser(dublicateUser);
 
         accessToken = response.extract().path("accessToken").toString().substring(7);
@@ -142,7 +142,7 @@ public class UserCreationTests extends Methods {
     @Test
     public void createUserSuccessDublicatePasswordReturnStatus200ok() {
         createUser(basicUserData);
-        User dublicateUser = new User(utils.generateRandomEmail(), basicUserData.getPassword(),utils.generateRandomName());
+        UserData dublicateUser = new UserData(utils.generateRandomEmail(), basicUserData.getPassword(),utils.generateRandomName());
 
         ValidatableResponse response = createUser(dublicateUser);
 
@@ -169,7 +169,7 @@ public class UserCreationTests extends Methods {
 
     @Test
     public void createUserValidationFailEmailOmittedReturnStatus403forbidden() {
-        User user = new User()
+        UserData user = new UserData()
                 .addPassword(basicUserData.getPassword())
                 .addName(basicUserData.getName());
 
@@ -182,7 +182,7 @@ public class UserCreationTests extends Methods {
 
     @Test
     public void createUserValidationFailPasswordOmittedReturnStatus403forbidden() {
-        User user = new User()
+        UserData user = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addName(basicUserData.getName());
 
@@ -195,7 +195,7 @@ public class UserCreationTests extends Methods {
 
     @Test
     public void createUserValidationFailNameOmittedReturnStatus403forbidden() {
-        User user = new User()
+        UserData user = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword(basicUserData.getPassword());
 

@@ -5,18 +5,18 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import site.nomoreparties.stellarburgers.helpers.Methods;
+import site.nomoreparties.stellarburgers.clients.user.UserSteps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
-import site.nomoreparties.stellarburgers.pojo.User;
+import site.nomoreparties.stellarburgers.clients.user.UserData;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
-public class UserLoginTests extends Methods {
+public class UserLoginTests extends UserSteps {
     private String refreshToken;
     private String accessToken;
     Utils utils = new Utils();
-    User basicUserData = utils.generateRandomUser();
+    UserData basicUserData = utils.generateRandomUser();
 
     @Before
     public void setUp() {
@@ -35,7 +35,7 @@ public class UserLoginTests extends Methods {
 
     @Test
     public void loginUserSuccessReturnStatus200ok() {
-        User loginData = new User()
+        UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword(basicUserData.getPassword());
 
@@ -47,7 +47,7 @@ public class UserLoginTests extends Methods {
 
     @Test
     public void loginUserFailsWrongEmailReturnStatus401Unauthorized() {
-        User loginData = new User()
+        UserData loginData = new UserData()
                 .addEmail(utils.generateRandomEmail())
                 .addPassword(basicUserData.getPassword());
 
@@ -60,7 +60,7 @@ public class UserLoginTests extends Methods {
 
     @Test
     public void loginUserFailsWrongPasswordReturnStatus401Unauthorized() {
-        User loginData = new User()
+        UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword(utils.generateRandomPassword());
 
@@ -73,7 +73,7 @@ public class UserLoginTests extends Methods {
 
     @Test
     public void loginUserFailsEmptyEmailReturnStatus401Unauthorized() {
-        User loginData = new User()
+        UserData loginData = new UserData()
                 .addEmail("")
                 .addPassword(basicUserData.getPassword());
 
@@ -86,7 +86,7 @@ public class UserLoginTests extends Methods {
 
     @Test
     public void loginUserFailsEmptyPasswordReturnStatus401Unauthorized() {
-        User loginData = new User()
+        UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword("");
 

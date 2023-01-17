@@ -1,7 +1,7 @@
-package site.nomoreparties.stellarburgers.helpers;
+package site.nomoreparties.stellarburgers.clients.user;
 
 import io.restassured.response.ValidatableResponse;
-import site.nomoreparties.stellarburgers.pojo.User;
+import site.nomoreparties.stellarburgers.helpers.Constants;
 
 import static io.restassured.RestAssured.given;
 
@@ -9,8 +9,8 @@ import static io.restassured.RestAssured.given;
  * Вспомогательльные тестовые методы
  */
 
-public class Methods extends Constants {
-    protected ValidatableResponse createUser(User user) {
+public class UserSteps extends Constants {
+    protected ValidatableResponse createUser(UserData user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
                 .body(user)
@@ -30,7 +30,7 @@ public class Methods extends Constants {
         return response;
     }
 
-    protected ValidatableResponse createUserString(User user) {
+    protected ValidatableResponse createUserString(UserData user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
                 .body(user.buildJSONToString())
@@ -40,7 +40,7 @@ public class Methods extends Constants {
         return response;
     }
 
-    protected ValidatableResponse login(String accessToken, User loginData) {
+    protected ValidatableResponse login(String accessToken, UserData loginData) {
         ValidatableResponse response = given().log().all()
                 .auth().oauth2(accessToken)
                 .header("Content-type", "application/json")
@@ -51,7 +51,7 @@ public class Methods extends Constants {
         return response;
     }
 
-    protected ValidatableResponse updateUserData(User userData, String accessToken) {
+    protected ValidatableResponse updateUserData(UserData userData, String accessToken) {
         ValidatableResponse response = given().log().all()
                    .auth().oauth2(accessToken)
                    .header("Content-type", "application/json")

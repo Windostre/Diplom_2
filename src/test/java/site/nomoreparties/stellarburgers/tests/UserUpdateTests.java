@@ -5,18 +5,18 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import site.nomoreparties.stellarburgers.helpers.Methods;
+import site.nomoreparties.stellarburgers.clients.user.UserSteps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
-import site.nomoreparties.stellarburgers.pojo.User;
+import site.nomoreparties.stellarburgers.clients.user.UserData;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
-public class UserUpdateTests extends Methods {
+public class UserUpdateTests extends UserSteps {
     private String refreshToken;
     private String accessToken;
     private Utils utils = new Utils();
-    private User basicUserData = utils.generateRandomUser();
+    private UserData basicUserData = utils.generateRandomUser();
 
     private String updatedEmail;
     private String updatedName;
@@ -41,7 +41,7 @@ public class UserUpdateTests extends Methods {
 
     @Test
     public void updateUnauthorizedUserFailReceiveStatus401Unauthorized() {
-        User updatedUserData = new User()
+        UserData updatedUserData = new UserData()
                 .addEmail(updatedEmail)
                 .addName(updatedName);
         ValidatableResponse response = updateUserData(updatedUserData,"");
@@ -53,7 +53,7 @@ public class UserUpdateTests extends Methods {
 
     @Test
     public void updateUnauthorizedUserFailLogoutReceiveStatus401Unauthorized() {
-        User updatedUserData = new User()
+        UserData updatedUserData = new UserData()
                 .addEmail(updatedEmail)
                 .addName(updatedName);
 
@@ -67,7 +67,7 @@ public class UserUpdateTests extends Methods {
 
     @Test
     public void updateAuthorizedUserSuccessReceiveNewDataAndStatus200Ok() {
-        User updatedUserData = new User()
+        UserData updatedUserData = new UserData()
                 .addEmail(updatedEmail)
                 .addName(updatedName);
 
@@ -82,7 +82,7 @@ public class UserUpdateTests extends Methods {
 
     @Test
     public void updateAuthorizedUserFailEmailIsBlank() {
-        User updatedUserData = new User()
+        UserData updatedUserData = new UserData()
                 .addEmail("")
                 .addName(updatedName);
 
@@ -95,7 +95,7 @@ public class UserUpdateTests extends Methods {
 
     @Test
     public void updateAuthorizedUserFailNameIsBlank() {
-        User updatedUserData = new User()
+        UserData updatedUserData = new UserData()
                 .addEmail(updatedEmail)
                 .addName("");
 
@@ -108,7 +108,7 @@ public class UserUpdateTests extends Methods {
 
     @Test
     public void updateAuthorizedUserFailEmailAlreadyExistReceiveStatus403Forbiden() {
-        User updatedUserData = new User()
+        UserData updatedUserData = new UserData()
                 .addEmail(CONSTANT_USER_EMAIL)
                 .addName(updatedName);
 
