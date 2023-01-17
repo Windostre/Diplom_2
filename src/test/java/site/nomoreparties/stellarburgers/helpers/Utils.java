@@ -1,6 +1,7 @@
 package site.nomoreparties.stellarburgers.helpers;
 
 import com.github.javafaker.Faker;
+import site.nomoreparties.stellarburgers.clients.orders.OrderData;
 import site.nomoreparties.stellarburgers.clients.user.UserData;
 
 public class Utils {
@@ -31,4 +32,5 @@ public class Utils {
     public String generateRandomEmail() {
         return faker.internet().emailAddress();
     }
+
 }
