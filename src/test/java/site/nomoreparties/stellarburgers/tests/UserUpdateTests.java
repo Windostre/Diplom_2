@@ -5,24 +5,23 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import site.nomoreparties.stellarburgers.clients.user.UserData;
 import site.nomoreparties.stellarburgers.clients.user.UserSteps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
-import site.nomoreparties.stellarburgers.clients.user.UserData;
 
-import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
 public class UserUpdateTests extends UserSteps {
     private String refreshToken;
     private String accessToken;
     private Utils utils = new Utils();
-    private UserData basicUserData = utils.generateRandomUser();
-
+    private UserData basicUserData;
     private String updatedEmail;
     private String updatedName;
     @Before
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
+        basicUserData = utils.generateRandomUser();
         ValidatableResponse response = createUser(basicUserData);
         accessToken = response.extract().path("accessToken").toString().substring(7);
         refreshToken = response.extract().path("refreshToken");

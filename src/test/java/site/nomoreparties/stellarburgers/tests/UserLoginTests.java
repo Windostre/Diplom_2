@@ -5,22 +5,21 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import site.nomoreparties.stellarburgers.clients.user.UserData;
 import site.nomoreparties.stellarburgers.clients.user.UserSteps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
-import site.nomoreparties.stellarburgers.clients.user.UserData;
 
-import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
 public class UserLoginTests extends UserSteps {
-    private String refreshToken;
     private String accessToken;
-    Utils utils = new Utils();
-    UserData basicUserData = utils.generateRandomUser();
+    private Utils utils = new Utils();
+    private UserData basicUserData;
 
     @Before
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
+        basicUserData = utils.generateRandomUser();
         ValidatableResponse response = createUser(basicUserData);
         accessToken = response.extract().path("accessToken");
     }
