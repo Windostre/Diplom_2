@@ -14,9 +14,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
 public class UserCreationTests extends UserSteps {
+    private final Utils utils = new Utils();
     private String refreshToken;
     private String accessToken;
-    private Utils utils = new Utils();
     private UserData basicUserData;
 
     @Before
@@ -116,7 +116,7 @@ public class UserCreationTests extends UserSteps {
     @Test
     public void createUserFailDublicateEmailReturnStatus403forbidden() {
         createUser(basicUserData);
-        UserData dublicateUser = new UserData(basicUserData.getEmail(), utils.generateRandomPassword(),utils.generateRandomName());
+        UserData dublicateUser = new UserData(basicUserData.getEmail(), utils.generateRandomPassword(), utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
         assertEquals(403, response.extract().statusCode());
@@ -127,7 +127,7 @@ public class UserCreationTests extends UserSteps {
     @Test
     public void createUserSuccessDublicateNameReturnStatus200ok() {
         createUser(basicUserData);
-        UserData dublicateUser = new UserData(utils.generateRandomEmail(), utils.generateRandomPassword(),basicUserData.getName());
+        UserData dublicateUser = new UserData(utils.generateRandomEmail(), utils.generateRandomPassword(), basicUserData.getName());
         ValidatableResponse response = createUser(dublicateUser);
 
         accessToken = response.extract().path("accessToken").toString().substring(7);
@@ -143,7 +143,7 @@ public class UserCreationTests extends UserSteps {
     @Test
     public void createUserSuccessDublicatePasswordReturnStatus200ok() {
         createUser(basicUserData);
-        UserData dublicateUser = new UserData(utils.generateRandomEmail(), basicUserData.getPassword(),utils.generateRandomName());
+        UserData dublicateUser = new UserData(utils.generateRandomEmail(), basicUserData.getPassword(), utils.generateRandomName());
 
         ValidatableResponse response = createUser(dublicateUser);
 

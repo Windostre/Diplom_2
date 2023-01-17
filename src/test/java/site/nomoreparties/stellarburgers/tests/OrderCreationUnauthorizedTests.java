@@ -16,8 +16,8 @@ import static org.junit.Assert.*;
 
 public class OrderCreationUnauthorizedTests extends OrderSteps {
 
-    private OrderData orderData;
     private final Utils utils = new Utils();
+    private OrderData orderData;
     private Integer orderNumber;
 
     @Before
@@ -51,6 +51,7 @@ public class OrderCreationUnauthorizedTests extends OrderSteps {
         assertEquals("Ingredient ids must be provided", response.extract().path("message"));
 
     }
+
     @Test
     public void createOrderFailInvalidIngredientsReturnStatus500InternalServerError() {
         orderData = utils.generateFakeIngredients();

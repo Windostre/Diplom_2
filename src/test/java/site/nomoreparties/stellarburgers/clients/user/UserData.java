@@ -10,6 +10,7 @@ import java.util.List;
  * Описание ключей пользователя для целей api
  */
 public class UserData {
+    private final List<String> builder = new ArrayList<>(); // для создания шаблона объекта
     @Getter
     @Setter
     private String email;
@@ -30,22 +31,22 @@ public class UserData {
 
     }
 
-    private List<String> builder = new ArrayList<>(); // для создания шаблона объекта
-
     public UserData addEmail(String email) {
         builder.add("\"email\": " + "\"" + email + "\"");
         return this;
     }
+
     public UserData addPassword(String password) {
         builder.add("\"password\": " + "\"" + password + "\"");
         return this;
     }
+
     public UserData addName(String name) {
         builder.add("\"name\": " + "\"" + name + "\"");
         return this;
     }
 
     public String buildJSONToString() {
-        return "{" + "\n" + String.join( ",", builder) + "\n"+ "}";
+        return "{" + "\n" + String.join(",", builder) + "\n" + "}";
     }
 }

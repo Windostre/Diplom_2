@@ -53,12 +53,12 @@ public class UserSteps extends Constants {
 
     protected ValidatableResponse updateUserData(UserData userData, String accessToken) {
         ValidatableResponse response = given().log().all()
-                   .auth().oauth2(accessToken)
-                   .header("Content-type", "application/json")
-                   .body(userData.buildJSONToString())
-                   .when()
-                   .patch(API_USER_DATA)
-                   .then().log().all();
+                .auth().oauth2(accessToken)
+                .header("Content-type", "application/json")
+                .body(userData.buildJSONToString())
+                .when()
+                .patch(API_USER_DATA)
+                .then().log().all();
         return response;
     }
 

@@ -3,10 +3,6 @@ package site.nomoreparties.stellarburgers.clients.orders;
 import io.restassured.response.ValidatableResponse;
 import site.nomoreparties.stellarburgers.helpers.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import static io.restassured.RestAssured.given;
 
 /**
@@ -31,8 +27,6 @@ public class OrderSteps extends Constants {
                 .then().log().all();
         return response;
     }
-
-
 
 
 }

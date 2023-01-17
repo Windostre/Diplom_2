@@ -12,8 +12,8 @@ import site.nomoreparties.stellarburgers.helpers.Utils;
 import static org.junit.Assert.*;
 
 public class UserLoginTests extends UserSteps {
+    private final Utils utils = new Utils();
     private String accessToken;
-    private Utils utils = new Utils();
     private UserData basicUserData;
 
     @Before
@@ -38,7 +38,7 @@ public class UserLoginTests extends UserSteps {
                 .addEmail(basicUserData.getEmail())
                 .addPassword(basicUserData.getPassword());
 
-        ValidatableResponse response = login(accessToken,loginData);
+        ValidatableResponse response = login(accessToken, loginData);
 
         assertEquals(200, response.extract().statusCode());
         assertTrue(response.extract().path("success"));
@@ -50,7 +50,7 @@ public class UserLoginTests extends UserSteps {
                 .addEmail(utils.generateRandomEmail())
                 .addPassword(basicUserData.getPassword());
 
-        ValidatableResponse response = login(accessToken,loginData);
+        ValidatableResponse response = login(accessToken, loginData);
 
         assertEquals(401, response.extract().statusCode());
         assertFalse(response.extract().path("success"));
@@ -63,7 +63,7 @@ public class UserLoginTests extends UserSteps {
                 .addEmail(basicUserData.getEmail())
                 .addPassword(utils.generateRandomPassword());
 
-        ValidatableResponse response = login(accessToken,loginData);
+        ValidatableResponse response = login(accessToken, loginData);
 
         assertEquals(401, response.extract().statusCode());
         assertFalse(response.extract().path("success"));
@@ -76,7 +76,7 @@ public class UserLoginTests extends UserSteps {
                 .addEmail("")
                 .addPassword(basicUserData.getPassword());
 
-        ValidatableResponse response = login(accessToken,loginData);
+        ValidatableResponse response = login(accessToken, loginData);
 
         assertEquals(401, response.extract().statusCode());
         assertFalse(response.extract().path("success"));
@@ -89,7 +89,7 @@ public class UserLoginTests extends UserSteps {
                 .addEmail(basicUserData.getEmail())
                 .addPassword("");
 
-        ValidatableResponse response = login(accessToken,loginData);
+        ValidatableResponse response = login(accessToken, loginData);
 
         assertEquals(401, response.extract().statusCode());
         assertFalse(response.extract().path("success"));

@@ -12,12 +12,13 @@ import site.nomoreparties.stellarburgers.helpers.Utils;
 import static org.junit.Assert.*;
 
 public class UserUpdateTests extends UserSteps {
+    private final Utils utils = new Utils();
     private String refreshToken;
     private String accessToken;
-    private Utils utils = new Utils();
     private UserData basicUserData;
     private String updatedEmail;
     private String updatedName;
+
     @Before
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
@@ -43,7 +44,7 @@ public class UserUpdateTests extends UserSteps {
         UserData updatedUserData = new UserData()
                 .addEmail(updatedEmail)
                 .addName(updatedName);
-        ValidatableResponse response = updateUserData(updatedUserData,"");
+        ValidatableResponse response = updateUserData(updatedUserData, "");
 
         assertEquals(401, response.extract().statusCode());
         assertFalse(response.extract().path("success"));

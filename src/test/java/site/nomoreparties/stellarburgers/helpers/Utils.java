@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import static io.restassured.RestAssured.given;
-
 public class Utils {
     Random random = new Random();
     Faker faker = new Faker();
@@ -66,13 +64,12 @@ public class Utils {
         int size = random.nextInt(10) + 1;
 
         List<String> ingredients = new ArrayList<>();
+
         for (int i = 0; i < size; i++) {
             String fakeIngredient = RandomStringUtils.randomAlphanumeric(24, 25);
             ingredients.add(fakeIngredient.toLowerCase(Locale.ROOT));
         }
         return new OrderData(ingredients);
-
-
     }
 
 
