@@ -83,7 +83,7 @@ public class UserUpdateTests extends UserSteps {
     public void updateAuthorizedUserFailEmailIsBlank() {
         UserData updatedUserData = new UserData()
                 .addEmail("")
-                .addName(updatedName);
+                .addName(basicUserData.getName());
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
@@ -95,7 +95,7 @@ public class UserUpdateTests extends UserSteps {
     @Test
     public void updateAuthorizedUserFailNameIsBlank() {
         UserData updatedUserData = new UserData()
-                .addEmail(updatedEmail)
+                .addEmail(basicUserData.getEmail())
                 .addName("");
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
@@ -109,7 +109,7 @@ public class UserUpdateTests extends UserSteps {
     public void updateAuthorizedUserFailEmailAlreadyExistReceiveStatus403Forbiden() {
         UserData updatedUserData = new UserData()
                 .addEmail(CONSTANT_USER_EMAIL)
-                .addName(updatedName);
+                .addName(basicUserData.getName());
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
