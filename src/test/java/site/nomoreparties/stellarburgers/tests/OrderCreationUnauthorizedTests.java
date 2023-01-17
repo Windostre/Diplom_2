@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.orders.OrderData;
 import site.nomoreparties.stellarburgers.clients.orders.OrderSteps;
+import site.nomoreparties.stellarburgers.helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +15,20 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 
 public class OrderCreationUnauthorizedTests extends OrderSteps {
-    private List<String> ingredients = new ArrayList<>();
+
     private OrderData orderData;
+    private final Utils utils = new Utils();
     private Integer orderNumber;
+
     @Before
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
-        ValidatableResponse ingredientsList = getIngredientsList();
-        ingredients = ingredientsList.extract().path("data._id");
-        orderData = new OrderData(ingredients);
+
     }
 
     @Test
     public void createOrderSuccessReturnStatus200ok() {
+        orderData = utils.createIngredientListWithApi(getIngredients());
         ValidatableResponse response = createOrder(orderData);
 
         orderNumber = response.extract().path("order.number");
@@ -40,7 +42,8 @@ public class OrderCreationUnauthorizedTests extends OrderSteps {
 
     @Test
     public void createOrderFailNoIngredientsReturnStatus404BadRequest() {
-        ingredients.clear();
+        List<String> ingredients = new ArrayList<>();
+        orderData = new OrderData(ingredients);
         ValidatableResponse response = createOrder(orderData);
 
         assertEquals(400, response.extract().statusCode());
@@ -50,7 +53,8 @@ public class OrderCreationUnauthorizedTests extends OrderSteps {
     }
     @Test
     public void createOrderFailInvalidIngredientsReturnStatus500InternalServerError() {
-        ingredients.add("61c0c5a71d1f82001dfdfdaa79");
+        orderData = utils.generateFakeIngredients();
+
         ValidatableResponse response = createOrder(orderData);
 
         assertEquals(500, response.extract().statusCode());

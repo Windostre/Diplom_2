@@ -5,6 +5,7 @@ import site.nomoreparties.stellarburgers.helpers.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -12,8 +13,8 @@ import static io.restassured.RestAssured.given;
  * Вспомогательльные тестовые методы
  */
 public class OrderSteps extends Constants {
-    protected ValidatableResponse getIngredientsList() {
-        ValidatableResponse response = given().log().all()
+    protected ValidatableResponse getIngredients() {
+        ValidatableResponse response = given()
                 .header("Content-type", "application/json")
                 .when()
                 .get(API_INGREDIENTS)
@@ -31,5 +32,7 @@ public class OrderSteps extends Constants {
         return response;
     }
 
-   
+
+
+
 }
