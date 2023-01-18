@@ -1,4 +1,4 @@
-package site.nomoreparties.stellarburgers.clients.orders;
+package site.nomoreparties.stellarburgers.clients;
 
 import lombok.Getter;
 import lombok.Setter;

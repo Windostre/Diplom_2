@@ -1,17 +1,17 @@
-package site.nomoreparties.stellarburgers.tests;
+package site.nomoreparties.stellarburgers.tests.user;
 
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import site.nomoreparties.stellarburgers.clients.user.UserData;
-import site.nomoreparties.stellarburgers.clients.user.UserSteps;
+import site.nomoreparties.stellarburgers.clients.UserData;
+import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
 import static org.junit.Assert.*;
 
-public class UserLoginTests extends UserSteps {
+public class UserLoginTests extends Steps {
     private final Utils utils = new Utils();
     private String accessToken;
     private UserData basicUserData;

@@ -1,7 +1,8 @@
-package site.nomoreparties.stellarburgers.clients.user;
+package site.nomoreparties.stellarburgers.helpers;
 
 import io.restassured.response.ValidatableResponse;
-import site.nomoreparties.stellarburgers.helpers.Constants;
+import site.nomoreparties.stellarburgers.clients.OrderData;
+import site.nomoreparties.stellarburgers.clients.UserData;
 
 import static io.restassured.RestAssured.given;
 
@@ -9,7 +10,7 @@ import static io.restassured.RestAssured.given;
  * Вспомогательльные тестовые методы
  */
 
-public class UserSteps extends Constants {
+public class Steps extends Constants {
     protected ValidatableResponse createUser(UserData user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
@@ -71,4 +72,24 @@ public class UserSteps extends Constants {
                 .then().log().all();
         return response;
     }
+
+    protected ValidatableResponse getIngredients() {
+        ValidatableResponse response = given()
+                .header("Content-type", "application/json")
+                .when()
+                .get(API_INGREDIENTS)
+                .then();
+        return response;
+    }
+
+    protected ValidatableResponse createOrder(OrderData orderData) {
+        ValidatableResponse response = given().log().all()
+                .header("Content-type", "application/json")
+                .body(orderData)
+                .when()
+                .post(API_ORDERS)
+                .then().log().all();
+        return response;
+    }
+
 }

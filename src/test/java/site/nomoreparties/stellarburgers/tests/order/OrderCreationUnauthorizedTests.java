@@ -1,20 +1,20 @@
-package site.nomoreparties.stellarburgers.tests;
+package site.nomoreparties.stellarburgers.tests.order;
 
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
-import site.nomoreparties.stellarburgers.clients.orders.OrderData;
-import site.nomoreparties.stellarburgers.clients.orders.OrderSteps;
+import site.nomoreparties.stellarburgers.clients.OrderData;
+import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-public class OrderCreationUnauthorizedTests extends OrderSteps {
+public class OrderCreationUnauthorizedTests extends Steps {
 
     private final Utils utils = new Utils();
     private OrderData orderData;

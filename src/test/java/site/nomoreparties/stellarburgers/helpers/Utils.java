@@ -3,12 +3,11 @@ package site.nomoreparties.stellarburgers.helpers;
 import com.github.javafaker.Faker;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
-import site.nomoreparties.stellarburgers.clients.orders.OrderData;
-import site.nomoreparties.stellarburgers.clients.user.UserData;
+import site.nomoreparties.stellarburgers.clients.OrderData;
+import site.nomoreparties.stellarburgers.clients.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class Utils {
