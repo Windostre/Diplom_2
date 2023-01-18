@@ -50,7 +50,7 @@ public class Utils {
         return ingredients.get(randomIgredient);
     }
 
-    public OrderData createIngredientListWithApi(ValidatableResponse response) {
+    public OrderData generateValidIngredientsList(ValidatableResponse response) {
         int size = random.nextInt(10) + 1;
         List<String> ingredients = new ArrayList<>();
 
@@ -66,11 +66,25 @@ public class Utils {
         List<String> ingredients = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            String fakeIngredient = RandomStringUtils.randomAlphanumeric(24, 25);
-            ingredients.add(fakeIngredient.toLowerCase(Locale.ROOT));
+            String fakeIngredient = (RandomStringUtils.randomAlphanumeric(24, 25)).toLowerCase();
+            ingredients.add(fakeIngredient);
         }
         return new OrderData(ingredients);
     }
+
+    public OrderData generateFakeAndValidIngredients(ValidatableResponse response) {
+        int size = random.nextInt(3) + 1;
+        List<String> ingredients = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            String fakeIngredient = ("fake" + RandomStringUtils.randomAlphanumeric(20, 21)).toLowerCase();
+            String validIngredient = getRandomIngredient(response);
+            ingredients.add(fakeIngredient);
+            ingredients.add(validIngredient);
+        }
+        return new OrderData(ingredients);
+    }
+
 
 
 }

@@ -28,7 +28,7 @@ public class OrderCreationUnauthorizedTests extends OrderSteps {
 
     @Test
     public void createOrderSuccessReturnStatus200ok() {
-        orderData = utils.createIngredientListWithApi(getIngredients());
+        orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrder(orderData);
 
         orderNumber = response.extract().path("order.number");
@@ -55,6 +55,16 @@ public class OrderCreationUnauthorizedTests extends OrderSteps {
     @Test
     public void createOrderFailInvalidIngredientsReturnStatus500InternalServerError() {
         orderData = utils.generateFakeIngredients();
+
+        ValidatableResponse response = createOrder(orderData);
+
+        assertEquals(500, response.extract().statusCode());
+
+    }
+
+    @Test
+    public void createOrderFailInvalidAndValidIngredientsReturnStatus500InternalServerError() {
+        orderData = utils.generateFakeAndValidIngredients(getIngredients());
 
         ValidatableResponse response = createOrder(orderData);
 
