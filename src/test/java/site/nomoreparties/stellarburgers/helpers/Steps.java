@@ -48,7 +48,7 @@ public class Steps extends Constants {
                 .body(loginData.buildJSONToString())
                 .when()
                 .post(API_USER_LOGIN)
-                .then();
+                .then().log().status();
         return response;
     }
 
@@ -82,8 +82,19 @@ public class Steps extends Constants {
         return response;
     }
 
-    protected ValidatableResponse createOrder(OrderData orderData) {
+    protected ValidatableResponse createOrderUnauthorized(OrderData orderData) {
         ValidatableResponse response = given().log().all()
+                .header("Content-type", "application/json")
+                .body(orderData)
+                .when()
+                .post(API_ORDERS)
+                .then().log().all();
+        return response;
+    }
+
+    protected ValidatableResponse createOrderAuthorized(String accessToken, OrderData orderData) {
+        ValidatableResponse response = given().log().all()
+                .auth().oauth2(accessToken)
                 .header("Content-type", "application/json")
                 .body(orderData)
                 .when()

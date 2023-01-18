@@ -11,7 +11,7 @@ import site.nomoreparties.stellarburgers.helpers.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 
 public class OrderCreationUnauthorizedTests extends Steps {
@@ -29,7 +29,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     @Test
     public void createOrderSuccessReturnStatus200ok() {
         orderData = utils.generateValidIngredientsList(getIngredients());
-        ValidatableResponse response = createOrder(orderData);
+        ValidatableResponse response = createOrderUnauthorized(orderData);
 
         orderNumber = response.extract().path("order.number");
 
@@ -44,7 +44,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     public void createOrderFailNoIngredientsReturnStatus404BadRequest() {
         List<String> ingredients = new ArrayList<>();
         orderData = new OrderData(ingredients);
-        ValidatableResponse response = createOrder(orderData);
+        ValidatableResponse response = createOrderUnauthorized(orderData);
 
         assertEquals(400, response.extract().statusCode());
         assertFalse(response.extract().path("success"));
@@ -56,7 +56,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     public void createOrderFailInvalidIngredientsReturnStatus500InternalServerError() {
         orderData = utils.generateFakeIngredients();
 
-        ValidatableResponse response = createOrder(orderData);
+        ValidatableResponse response = createOrderUnauthorized(orderData);
 
         assertEquals(500, response.extract().statusCode());
 
@@ -66,7 +66,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     public void createOrderFailInvalidAndValidIngredientsReturnStatus500InternalServerError() {
         orderData = utils.generateFakeAndValidIngredients(getIngredients());
 
-        ValidatableResponse response = createOrder(orderData);
+        ValidatableResponse response = createOrderUnauthorized(orderData);
 
         assertEquals(500, response.extract().statusCode());
 
