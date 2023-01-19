@@ -80,7 +80,7 @@ public class Steps extends Constants {
         return response;
     }
 
-    @Step("Получить значения иггидиентов")
+    @Step("Получить значения ингридиентов")
     protected ValidatableResponse getIngredients() {
         ValidatableResponse response = given()
                 .header("Content-type", "application/json")
@@ -112,6 +112,7 @@ public class Steps extends Constants {
                 .then().log().all();
         return response;
     }
+
     @Step("Получить список заказов")
     protected ValidatableResponse getOrders(String accessToken) {
         ValidatableResponse response = given().log().all()

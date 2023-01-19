@@ -13,9 +13,6 @@ import site.nomoreparties.stellarburgers.clients.UserData;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
-
 public class OrderCreationAuthorizedTests extends Steps {
     private final Utils utils = new Utils();
     private OrderData orderData;
@@ -58,7 +55,7 @@ public class OrderCreationAuthorizedTests extends Steps {
         checkOrderCreatedHasName(response);
         checkOrderCreatedHasOrderId(response);
         checkOrderCreatedHasIngredients(response);
-        checkOrderCreatedHasUserData(response,ownerName,ownerEmail);
+        checkOrderCreatedHasUserData(response, ownerName, ownerEmail);
         checkOrderCreatedHasDateCreatedAt(response);
         checkOrderCreatedHasStatusDone(response);
         checkOrderCreatedHasOrderNumber(response);

@@ -12,10 +12,6 @@ import site.nomoreparties.stellarburgers.clients.UserData;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
-
 public class UserCreationTests extends Steps {
     private final Utils utils = new Utils();
     private String refreshToken;

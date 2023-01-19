@@ -14,9 +14,6 @@ import site.nomoreparties.stellarburgers.helpers.Utils;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
-
 public class OrderGetListTests extends Steps {
     private final Utils utils = new Utils();
     String createdOrderId;

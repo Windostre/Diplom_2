@@ -12,8 +12,6 @@ import site.nomoreparties.stellarburgers.clients.UserData;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
-import static org.junit.Assert.*;
-
 public class UserUpdateTests extends Steps {
     private final Utils utils = new Utils();
     private String refreshToken;
@@ -86,7 +84,7 @@ public class UserUpdateTests extends Steps {
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
         checkUserUpdateSuccessfully(response);
-        checkUserUpdateNewEmailIsSet(response,updatedEmail);
+        checkUserUpdateNewEmailIsSet(response, updatedEmail);
         checkUserUpdateNewNameIsSet(response, updatedName);
 
     }

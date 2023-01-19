@@ -79,7 +79,7 @@ public class Checks {
     public static void checkUserUpdateUnauthorisedFail(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(401)
-                .body("success", is(false));;
+                .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке корректно")
@@ -159,6 +159,7 @@ public class Checks {
                 .body("order.owner.name", equalTo(ownerName))
                 .body("order.owner.email", equalTo(ownerEmail));
     }
+
     @Step("Проверка. В заказе передана есть дата создания заказа")
     public static void checkOrderCreatedHasDateCreatedAt(ValidatableResponse response) {
         response.assertThat()
@@ -170,6 +171,7 @@ public class Checks {
         response.assertThat()
                 .body("order.owner.updatedAt", notNullValue());
     }
+
     @Step("Проверка. В заказ в статусе Done")
     public static void checkOrderCreatedHasStatusDone(ValidatableResponse response) {
         response.assertThat()
@@ -221,25 +223,26 @@ public class Checks {
     }
 
     @Step("Проверка. Заказы пользователя получены успешно")
-    public static void checkGetUserOrderSuccess (ValidatableResponse response) {
+    public static void checkGetUserOrderSuccess(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
                 .body("success", is(true));
     }
 
     @Step("Проверка. В заказы пользователя не пустые")
-    public static void checkGetUserOrderAreNotEmpty (ValidatableResponse response) {
+    public static void checkGetUserOrderAreNotEmpty(ValidatableResponse response) {
         response.assertThat()
                 .body("orders", not(emptyArray()));
     }
+
     @Step("Проверка. В заказах полученных передан правильный id заказа")
-    public static void checkGetUserOrderHasProperOrderId (ValidatableResponse response, String createdOrderId) {
+    public static void checkGetUserOrderHasProperOrderId(ValidatableResponse response, String createdOrderId) {
         response.assertThat()
                 .body("orders._id[0]", equalTo(createdOrderId));
     }
 
     @Step("Проверка. Получены все заказаы пользователя")
-    public static void checkGetUserOrderHasAllUserOrdersOnly (ValidatableResponse response, int ordersQuantity) {
+    public static void checkGetUserOrderHasAllUserOrdersOnly(ValidatableResponse response, int ordersQuantity) {
         response.assertThat()
                 .body("total", equalTo(ordersQuantity));
     }

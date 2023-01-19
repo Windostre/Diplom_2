@@ -45,7 +45,7 @@ public class UserLoginTests extends Steps {
                 .addPassword(basicUserData.getPassword());
 
         ValidatableResponse response = login(accessToken, loginData);
-         checkUserLoginSuccessfully(response);
+        checkUserLoginSuccessfully(response);
 
     }
 
