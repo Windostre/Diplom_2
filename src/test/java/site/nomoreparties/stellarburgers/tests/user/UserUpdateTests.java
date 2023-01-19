@@ -54,9 +54,8 @@ public class UserUpdateTests extends Steps {
                 .addName(updatedName);
         ValidatableResponse response = updateUserData(updatedUserData, "");
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("You should be authorised", response.extract().path("message"));
+        checkUserUpdateUnauthorisedFail(response);
+        checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -71,9 +70,8 @@ public class UserUpdateTests extends Steps {
         logout(refreshToken);
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("You should be authorised", response.extract().path("message"));
+        checkUserUpdateUnauthorisedFail(response);
+        checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -87,10 +85,9 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(response.extract().path("success"));
-        assertEquals(updatedEmail, response.extract().path("user.email"));
-        assertEquals(updatedName, response.extract().path("user.name"));
+        checkUserUpdateSuccessfully(response);
+        checkUserUpdateNewEmailIsSet(response,updatedEmail);
+        checkUserUpdateNewNameIsSet(response, updatedName);
 
     }
 
@@ -104,8 +101,7 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        assertNotEquals(200, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
+        checkUserUpdateFailStatusIsNot200(response);
 
     }
 
@@ -119,8 +115,7 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        assertNotEquals(200, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
+        checkUserUpdateFailStatusIsNot200(response);
 
     }
 
@@ -135,9 +130,8 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("User with such email already exists", response.extract().path("message"));
+        checkUserUpdateDublicateEmailFail(response);
+        checkUserUpdateDublicateErrorMessageIsCorrect(response);
 
     }
 

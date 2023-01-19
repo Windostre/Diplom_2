@@ -45,13 +45,11 @@ public class UserCreationTests extends Steps {
     public void createUserSuccessReturnStatus200ok() {
         ValidatableResponse response = createUser(basicUserData);
 
-        accessToken = response.extract().path("accessToken").toString().substring(7);
-        refreshToken = response.extract().path("refreshToken");
+        checkUserCreateSuccessfully(response);
+        checkAccessTokenReceived(response);
+        checkRefreshTokenReceived(response);
 
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(response.extract().path("success"));
-        assertThat(accessToken, notNullValue());
-        assertThat(refreshToken, notNullValue());
+        accessToken = response.extract().path("accessToken").toString().substring(7); //для удаления
 
     }
 
@@ -63,9 +61,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setEmail(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -77,9 +74,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setEmail("");
         ValidatableResponse response = createUser(basicUserData);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -91,9 +87,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setPassword(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -105,9 +100,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setPassword("");
         ValidatableResponse response = createUser(basicUserData);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -119,9 +113,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setName(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -133,9 +126,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setName("");
         ValidatableResponse response = createUser(basicUserData);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Email, password and name are required fields", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -148,9 +140,8 @@ public class UserCreationTests extends Steps {
         UserData dublicateUser = new UserData(basicUserData.getEmail(), utils.generateRandomPassword(), utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
-        assertEquals(403, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("User already exists", response.extract().path("message"));
+        checkUserCreateFail(response);
+        checkUserCreateDublicateErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -160,15 +151,13 @@ public class UserCreationTests extends Steps {
     public void createUserSuccessDublicateNameReturnStatus200ok() {
         createUser(basicUserData);
         UserData dublicateUser = new UserData(utils.generateRandomEmail(), utils.generateRandomPassword(), basicUserData.getName());
+
         ValidatableResponse response = createUser(dublicateUser);
+        accessToken = response.extract().path("accessToken").toString().substring(7); // для удаления
 
-        accessToken = response.extract().path("accessToken").toString().substring(7);
-        refreshToken = response.extract().path("refreshToken");
-
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(response.extract().path("success"));
-        assertThat(accessToken, notNullValue());
-        assertThat(refreshToken, notNullValue());
+        checkUserCreateSuccessfully(response);
+        checkAccessTokenReceived(response);
+        checkRefreshTokenReceived(response);
 
     }
 
@@ -181,14 +170,11 @@ public class UserCreationTests extends Steps {
         UserData dublicateUser = new UserData(utils.generateRandomEmail(), basicUserData.getPassword(), utils.generateRandomName());
 
         ValidatableResponse response = createUser(dublicateUser);
+        accessToken = response.extract().path("accessToken").toString().substring(7); // для удаления
 
-        accessToken = response.extract().path("accessToken").toString().substring(7);
-        refreshToken = response.extract().path("refreshToken");
-
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(response.extract().path("success"));
-        assertThat(accessToken, notNullValue());
-        assertThat(refreshToken, notNullValue());
+        checkUserCreateSuccessfully(response);
+        checkAccessTokenReceived(response);
+        checkRefreshTokenReceived(response);
 
     }
 
@@ -200,8 +186,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUser(basicUserData);
 
-        assertNotEquals(200, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
+        checkUserCreateFailStatusIsNot200(response);
 
     }
 
@@ -215,8 +200,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        assertNotEquals(200, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
+        checkUserCreateFailStatusIsNot200(response);
 
     }
 
@@ -230,8 +214,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        assertNotEquals(200, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
+        checkUserCreateFailStatusIsNot200(response);
 
     }
 
@@ -245,8 +228,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        assertNotEquals(200, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
+        checkUserCreateFailStatusIsNot200(response);
 
     }
 

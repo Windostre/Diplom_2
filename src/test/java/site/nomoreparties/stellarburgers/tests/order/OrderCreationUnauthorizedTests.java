@@ -38,12 +38,9 @@ public class OrderCreationUnauthorizedTests extends Steps {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        orderNumber = response.extract().path("order.number");
-
-        assertEquals(200, response.extract().statusCode());
-        assertThat(response.extract().path("name"), notNullValue());
-        assertTrue(response.extract().path("success"));
-        assertTrue(orderNumber > 0);
+        checkOrderCreatedSuccessfully(response);
+        checkOrderCreatedHasName(response);
+        checkOrderCreatedHasOrderNumber(response);
 
     }
 
@@ -55,9 +52,8 @@ public class OrderCreationUnauthorizedTests extends Steps {
         orderData = new OrderData(ingredients);
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        assertEquals(400, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("Ingredient ids must be provided", response.extract().path("message"));
+        checkOrderCreateFail(response);
+        checkOrderCreateNoIngredientsErrorMessageIsCorrect(response);
 
     }
 
@@ -69,7 +65,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        assertEquals(500, response.extract().statusCode());
+        checkOrderCreateFailStatus500(response);
 
     }
 
@@ -81,7 +77,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        assertEquals(500, response.extract().statusCode());
+        checkOrderCreateFailStatus500(response);
 
     }
 

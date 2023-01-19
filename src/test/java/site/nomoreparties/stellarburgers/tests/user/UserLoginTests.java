@@ -12,8 +12,6 @@ import site.nomoreparties.stellarburgers.clients.UserData;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
-import static org.junit.Assert.*;
-
 public class UserLoginTests extends Steps {
     private final Utils utils = new Utils();
     private String accessToken;
@@ -47,10 +45,10 @@ public class UserLoginTests extends Steps {
                 .addPassword(basicUserData.getPassword());
 
         ValidatableResponse response = login(accessToken, loginData);
+         checkUserLoginSuccessfully(response);
 
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(response.extract().path("success"));
     }
+
 
     @Test
     @DisplayName("Авторизация пользователя. Неверный email. Провал")
@@ -63,9 +61,9 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("email or password are incorrect", response.extract().path("message"));
+        checkUserLoginFailed(response);
+        checkUserLoginFailMessageIsCorrect(response);
+
     }
 
     @Test
@@ -79,9 +77,9 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("email or password are incorrect", response.extract().path("message"));
+        checkUserLoginFailed(response);
+        checkUserLoginFailMessageIsCorrect(response);
+
     }
 
     @Test
@@ -95,9 +93,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("email or password are incorrect", response.extract().path("message"));
+        checkUserLoginFailed(response);
+        checkUserLoginFailMessageIsCorrect(response);
     }
 
     @Test
@@ -111,9 +108,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("email or password are incorrect", response.extract().path("message"));
+        checkUserLoginFailed(response);
+        checkUserLoginFailMessageIsCorrect(response);
     }
 
 }

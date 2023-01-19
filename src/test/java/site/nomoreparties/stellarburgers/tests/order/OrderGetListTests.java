@@ -21,7 +21,6 @@ public class OrderGetListTests extends Steps {
     private final Utils utils = new Utils();
     String createdOrderId;
     String receivedOrderId;
-    boolean success;
     private OrderData orderData;
     private int orderTotal;
     private int orderTotalToDay;
@@ -50,9 +49,8 @@ public class OrderGetListTests extends Steps {
         accessToken = "";
         ValidatableResponse response = getOrders(accessToken);
 
-        assertEquals(401, response.extract().statusCode());
-        assertFalse(response.extract().path("success"));
-        assertEquals("You should be authorised", response.extract().path("message"));
+        checkGetUserOrderFail(response);
+        checkGetUserOrderErrorMessageIsCorrect(response);
 
     }
 
@@ -63,20 +61,14 @@ public class OrderGetListTests extends Steps {
     public void getUserOrdersSuccessAuthorizedReturnOrderListAnd200Ok() {
         ValidatableResponse response = getOrders(accessToken);
 
-        success = response.extract().path("success");
-        receivedOrderId = response.extract().path("orders._id[0]");
         List<String> orders = response.extract().path("orders");
         int ordersQuantity = orders.size();
-        orderTotal = response.extract().path("total");
-        orderTotalToDay = response.extract().path("totalToday");
 
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(success);
-        assertThat(orders, notNullValue());
-        assertEquals(createdOrderId, receivedOrderId);
-        assertTrue(orderTotal >= orderTotalToDay);
-        System.out.println(ordersQuantity);
-        assertEquals(ordersQuantity, orderTotal);
+        checkGetUserOrderSuccess(response);
+        checkGetUserOrderAreNotEmpty(response);
+        checkGetUserOrderHasProperOrderId(response, createdOrderId);
+        checkGetUserOrderHasAllUserOrdersOnly(response, ordersQuantity);
+
     }
 
 }

@@ -1,6 +1,6 @@
 package site.nomoreparties.stellarburgers.helpers;
 
-public class Constants {
+public class Constants extends Checks{
     protected final String BURGER_BASE_URI = "https://stellarburgers.nomoreparties.site";
 
     protected final String API_USER_REGISTER = "/api/auth/register"; // для создания пользователя

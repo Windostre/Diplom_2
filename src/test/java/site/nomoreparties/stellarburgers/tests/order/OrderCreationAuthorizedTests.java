@@ -51,29 +51,18 @@ public class OrderCreationAuthorizedTests extends Steps {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderAuthorized(accessToken, orderData);
 
-
-        boolean success = response.extract().path("success");
-        String name = response.extract().path("name");
-        String orderId = response.extract().path("order._id");
         String ownerName = response.extract().path("order.owner.name");
         String ownerEmail = response.extract().path("order.owner.email");
-        String createdAt = response.extract().path("order.owner.createdAt");
-        String updatedAt = response.extract().path("order.owner.updatedAt");
-        String orderStatus = response.extract().path("order.status");
-        int orderNumber = response.extract().path("order.number");
-        int orderPrice = response.extract().path("order.number");
 
-        assertEquals(200, response.extract().statusCode());
-        assertTrue(success);
-        assertThat(name, notNullValue());
-        assertThat(orderId, notNullValue());
-        assertThat(response.extract().path("order.ingredients"), notNullValue());
-        assertEquals(userData.getName(), ownerName);
-        assertEquals(userData.getEmail(), ownerEmail);
-        assertThat(createdAt, notNullValue());
-        assertThat(updatedAt, notNullValue());
-        assertEquals("done", orderStatus);
-        assertTrue(orderNumber > 0);
-        assertTrue(orderPrice > 0);
+        checkOrderCreatedSuccessfully(response);
+        checkOrderCreatedHasName(response);
+        checkOrderCreatedHasOrderId(response);
+        checkOrderCreatedHasIngredients(response);
+        checkOrderCreatedHasUserData(response,ownerName,ownerEmail);
+        checkOrderCreatedHasDateCreatedAt(response);
+        checkOrderCreatedHasStatusDone(response);
+        checkOrderCreatedHasOrderNumber(response);
+        checkOrderCreatedHasPrice(response);
+
     }
 }
