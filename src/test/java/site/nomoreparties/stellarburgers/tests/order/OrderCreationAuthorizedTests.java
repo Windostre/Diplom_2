@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 public class OrderCreationAuthorizedTests extends Steps {
     private final Utils utils = new Utils();
     private OrderData orderData;
-    private Integer orderNumber;
     private UserData userData;
     private UserData loginData;
     private String accessToken;
+
 
     @Before
     public void setUp() {
@@ -44,11 +44,29 @@ public class OrderCreationAuthorizedTests extends Steps {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderAuthorized(accessToken, orderData);
 
-        orderNumber = response.extract().path("order.number");
+        boolean success = response.extract().path("success");
+        String name = response.extract().path("name");
+        String orderId = response.extract().path("order._id");
+        String ownerName = response.extract().path("order.owner.name");
+        String ownerEmail = response.extract().path("order.owner.email");
+        String createdAt = response.extract().path("order.owner.createdAt");
+        String updatedAt = response.extract().path("order.owner.updatedAt");
+        String orderStatus = response.extract().path("order.status");
+        int orderNumber = response.extract().path("order.number");
+        int orderPrice = response.extract().path("order.number");
+
 
         assertEquals(200, response.extract().statusCode());
-        assertThat(response.extract().path("name"), notNullValue());
-        assertTrue(response.extract().path("success"));
+        assertTrue(success);
+        assertThat(name, notNullValue());
+        assertThat(orderId, notNullValue());
+        assertThat(response.extract().path("order.ingredients"), notNullValue());
+        assertEquals(userData.getName(), ownerName);
+        assertEquals(userData.getEmail(), ownerEmail);
+        assertThat(createdAt, notNullValue());
+        assertThat(updatedAt, notNullValue());
+        assertEquals("done", orderStatus);
         assertTrue(orderNumber > 0);
+        assertTrue(orderPrice > 0);
     }
 }

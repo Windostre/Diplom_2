@@ -103,4 +103,13 @@ public class Steps extends Constants {
         return response;
     }
 
+    protected ValidatableResponse getOrders(String accessToken) {
+        ValidatableResponse response = given().log().all()
+                .auth().oauth2(accessToken)
+                .header("Content-type", "application/json")
+                .when()
+                .get(API_ORDERS)
+                .then().log().all();
+        return response;
+    }
 }
