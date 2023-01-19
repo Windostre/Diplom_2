@@ -25,15 +25,9 @@ public class OrderCreationAuthorizedTests extends Steps {
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
         userData = utils.generateRandomUser();
-        loginData = new UserData()
-                .addEmail(userData.getEmail())
-                .addPassword(userData.getPassword());
 
         ValidatableResponse createResponse = createUser(userData);
-        accessToken = createResponse.extract().path("accessToken");
-
-        ValidatableResponse loginResponse = login(accessToken, loginData);
-        accessToken = loginResponse.extract().path("accessToken").toString().substring(7);
+        accessToken = createResponse.extract().path("accessToken").toString().substring(7);
 
     }
 

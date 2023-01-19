@@ -27,7 +27,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .when()
                 .delete(API_USER_DATA)
-                .then();
+                .then().log().all();
         return response;
     }
 
