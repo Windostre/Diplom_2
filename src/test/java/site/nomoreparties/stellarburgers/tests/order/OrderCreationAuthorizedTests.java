@@ -1,5 +1,8 @@
 package site.nomoreparties.stellarburgers.tests.order;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -17,11 +20,11 @@ public class OrderCreationAuthorizedTests extends Steps {
     private final Utils utils = new Utils();
     private OrderData orderData;
     private UserData userData;
-    private UserData loginData;
     private String accessToken;
 
 
     @Before
+    @Step("Выполить предварительные действия для тестов по созданию заказа")
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
         userData = utils.generateRandomUser();
@@ -32,6 +35,7 @@ public class OrderCreationAuthorizedTests extends Steps {
     }
 
     @After
+    @Step("Удалить тестовые данные")
     public void tearDown() {
         if (accessToken == null || "".equals(accessToken)) {
             return;
@@ -40,9 +44,13 @@ public class OrderCreationAuthorizedTests extends Steps {
     }
 
     @Test
+    @DisplayName("Создание заказа. Пользователь авторизован. Успешно")
+    @Description("Проверяет, что можно создать заказ авторизованному пользователю с указанием валидных ингридиентов. " +
+            "В ответе возвращен заказ со списком ингридиентов, данные пользователя, дата создания и изменения, id, наименование, номер и цена заказа")
     public void createOrderSuccessReturnStatus200ok() {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderAuthorized(accessToken, orderData);
+
 
         boolean success = response.extract().path("success");
         String name = response.extract().path("name");
@@ -54,7 +62,6 @@ public class OrderCreationAuthorizedTests extends Steps {
         String orderStatus = response.extract().path("order.status");
         int orderNumber = response.extract().path("order.number");
         int orderPrice = response.extract().path("order.number");
-
 
         assertEquals(200, response.extract().statusCode());
         assertTrue(success);

@@ -1,5 +1,6 @@
 package site.nomoreparties.stellarburgers.helpers;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import site.nomoreparties.stellarburgers.clients.OrderData;
 import site.nomoreparties.stellarburgers.clients.UserData;
@@ -11,6 +12,7 @@ import static io.restassured.RestAssured.given;
  */
 
 public class Steps extends Constants {
+    @Step("Создать пользователя")
     protected ValidatableResponse createUser(UserData user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
@@ -21,6 +23,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Удалить пользователя")
     protected ValidatableResponse deleteUser(String accessToken) {
         ValidatableResponse response = given().log().all()
                 .auth().oauth2(accessToken)
@@ -31,6 +34,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Создать пользователя")
     protected ValidatableResponse createUserString(UserData user) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
@@ -41,6 +45,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Авторизоваться")
     protected ValidatableResponse login(String accessToken, UserData loginData) {
         ValidatableResponse response = given().log().all()
                 .auth().oauth2(accessToken)
@@ -52,6 +57,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Обновить данные пользователя")
     protected ValidatableResponse updateUserData(UserData userData, String accessToken) {
         ValidatableResponse response = given().log().all()
                 .auth().oauth2(accessToken)
@@ -63,6 +69,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Выйти из системы")
     protected ValidatableResponse logout(String refreshToken) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
@@ -73,6 +80,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Получить значения иггидиентов")
     protected ValidatableResponse getIngredients() {
         ValidatableResponse response = given()
                 .header("Content-type", "application/json")
@@ -82,6 +90,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Создать заказ без авторизации")
     protected ValidatableResponse createOrderUnauthorized(OrderData orderData) {
         ValidatableResponse response = given().log().all()
                 .header("Content-type", "application/json")
@@ -92,6 +101,7 @@ public class Steps extends Constants {
         return response;
     }
 
+    @Step("Создать заказ с авторизацией")
     protected ValidatableResponse createOrderAuthorized(String accessToken, OrderData orderData) {
         ValidatableResponse response = given().log().all()
                 .auth().oauth2(accessToken)
@@ -102,7 +112,7 @@ public class Steps extends Constants {
                 .then().log().all();
         return response;
     }
-
+    @Step("Получить список заказов")
     protected ValidatableResponse getOrders(String accessToken) {
         ValidatableResponse response = given().log().all()
                 .auth().oauth2(accessToken)

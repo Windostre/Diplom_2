@@ -1,5 +1,8 @@
 package site.nomoreparties.stellarburgers.tests.user;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -17,6 +20,7 @@ public class UserLoginTests extends Steps {
     private UserData basicUserData;
 
     @Before
+    @Step("Выполить предварительные действия для тестов по авторизации")
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
         basicUserData = utils.generateRandomUser();
@@ -25,6 +29,7 @@ public class UserLoginTests extends Steps {
     }
 
     @After
+    @Step("Удалить тестовые данные")
     public void tearDown() {
         if (accessToken == null || "".equals(accessToken)) {
             return;
@@ -33,6 +38,9 @@ public class UserLoginTests extends Steps {
     }
 
     @Test
+    @DisplayName("Авторизация пользователя. Успешно")
+    @Description("Проверяет, что пользователя успешно авторизуется с валидными паролем и почтой." +
+            "Получен статус 200 и сообщение получен accessToken и refreshToken")
     public void loginUserSuccessReturnStatus200ok() {
         UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
@@ -45,6 +53,9 @@ public class UserLoginTests extends Steps {
     }
 
     @Test
+    @DisplayName("Авторизация пользователя. Неверный email. Провал")
+    @Description("Проверяет, что нельзя авторизоваться с неправильной почтой." +
+            "Получен статус 401 и сообщение об ошибке")
     public void loginUserFailsWrongEmailReturnStatus401Unauthorized() {
         UserData loginData = new UserData()
                 .addEmail(utils.generateRandomEmail())
@@ -58,6 +69,9 @@ public class UserLoginTests extends Steps {
     }
 
     @Test
+    @DisplayName("Авторизация пользователя. Неверный пароль. Провал")
+    @Description("Проверяет, что нельзя авторизоваться с неправильным паролем." +
+            "Получен статус 401 и сообщение об ошибке")
     public void loginUserFailsWrongPasswordReturnStatus401Unauthorized() {
         UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
@@ -71,6 +85,9 @@ public class UserLoginTests extends Steps {
     }
 
     @Test
+    @DisplayName("Авторизация пользователя. Пустой email. Провал")
+    @Description("Проверяет, что нельзя авторизоваться без указания почты." +
+            "Получен статус 401 и сообщение об ошибке")
     public void loginUserFailsEmptyEmailReturnStatus401Unauthorized() {
         UserData loginData = new UserData()
                 .addEmail("")
@@ -84,6 +101,9 @@ public class UserLoginTests extends Steps {
     }
 
     @Test
+    @DisplayName("Авторизация пользователя. Пустой пароль. Провал")
+    @Description("Проверяет, что нельзя авторизоваться без указания пароля." +
+            "Получен статус 401 и сообщение об ошибке")
     public void loginUserFailsEmptyPasswordReturnStatus401Unauthorized() {
         UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())

@@ -1,5 +1,8 @@
 package site.nomoreparties.stellarburgers.tests.order;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
@@ -11,7 +14,6 @@ import site.nomoreparties.stellarburgers.helpers.Utils;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 
@@ -27,6 +29,7 @@ public class OrderGetListTests extends Steps {
     private String accessToken;
 
     @Before
+    @Step("Выполить предварительные действия для тестов по получению списка заказов")
     public void setUp() {
         RestAssured.baseURI = BURGER_BASE_URI;
         userData = utils.generateRandomUser();
@@ -40,6 +43,9 @@ public class OrderGetListTests extends Steps {
     }
 
     @Test
+    @DisplayName("Получить список заказов пользователя без авторизации. Провал")
+    @Description("Проверяет, что нельзя получить список заказов конкретного пользователя без авторизации. " +
+            "Получен статус 401 и сообщение об ошибке")
     public void getUserOrdersFailUnauthorizedReturnStatus401Unauthorized() {
         accessToken = "";
         ValidatableResponse response = getOrders(accessToken);
@@ -51,6 +57,9 @@ public class OrderGetListTests extends Steps {
     }
 
     @Test
+    @DisplayName("Получить список заказов пользователя. Пользователь авторизован. Успешно")
+    @Description("Проверяет, что авторизованный пользователь может получить списко своих заказов. " +
+            "Получен статус 200 и в ответе есть список всех заказазов пользователя с их общим количеством и отдельно за день. ")
     public void getUserOrdersSuccessAuthorizedReturnOrderListAnd200Ok() {
         ValidatableResponse response = getOrders(accessToken);
 
