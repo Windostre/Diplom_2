@@ -9,16 +9,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.UserData;
+import site.nomoreparties.stellarburgers.helpers.Checks;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
 public class UserUpdateTests extends Steps {
     private final Utils utils = new Utils();
+
     private String refreshToken;
     private String accessToken;
     private UserData basicUserData;
     private String updatedEmail;
     private String updatedName;
+    private Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по изменению данных пользователя")
@@ -52,8 +55,8 @@ public class UserUpdateTests extends Steps {
                 .addName(updatedName);
         ValidatableResponse response = updateUserData(updatedUserData, "");
 
-        checkUserUpdateUnauthorisedFail(response);
-        checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
+        check.checkUserUpdateUnauthorisedFail(response);
+        check.checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -68,8 +71,8 @@ public class UserUpdateTests extends Steps {
         logout(refreshToken);
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        checkUserUpdateUnauthorisedFail(response);
-        checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
+        check.checkUserUpdateUnauthorisedFail(response);
+        check.checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -83,9 +86,9 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        checkUserUpdateSuccessfully(response);
-        checkUserUpdateNewEmailIsSet(response, updatedEmail);
-        checkUserUpdateNewNameIsSet(response, updatedName);
+        check.checkUserUpdateSuccessfully(response);
+        check.checkUserUpdateNewEmailIsSet(response, updatedEmail);
+        check.checkUserUpdateNewNameIsSet(response, updatedName);
 
     }
 
@@ -99,7 +102,7 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        checkUserUpdateFailStatusIsNot200(response);
+        check.checkUserUpdateFailStatusIsNot200(response);
 
     }
 
@@ -113,7 +116,7 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        checkUserUpdateFailStatusIsNot200(response);
+        check.checkUserUpdateFailStatusIsNot200(response);
 
     }
 
@@ -128,8 +131,8 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        checkUserUpdateDublicateEmailFail(response);
-        checkUserUpdateDublicateErrorMessageIsCorrect(response);
+        check.checkUserUpdateDublicateEmailFail(response);
+        check.checkUserUpdateDublicateErrorMessageIsCorrect(response);
 
     }
 

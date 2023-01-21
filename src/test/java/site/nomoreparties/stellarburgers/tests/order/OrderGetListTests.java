@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.OrderData;
 import site.nomoreparties.stellarburgers.clients.UserData;
+import site.nomoreparties.stellarburgers.helpers.Checks;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
@@ -16,11 +17,9 @@ import java.util.List;
 
 public class OrderGetListTests extends Steps {
     private final Utils utils = new Utils();
+    private Checks check = new Checks();
     String createdOrderId;
-    String receivedOrderId;
     private OrderData orderData;
-    private int orderTotal;
-    private int orderTotalToDay;
     private UserData userData;
     private String accessToken;
 
@@ -46,8 +45,8 @@ public class OrderGetListTests extends Steps {
         accessToken = "";
         ValidatableResponse response = getOrders(accessToken);
 
-        checkGetUserOrderFail(response);
-        checkGetUserOrderErrorMessageIsCorrect(response);
+        check.checkGetUserOrderFail(response);
+        check.checkGetUserOrderErrorMessageIsCorrect(response);
 
     }
 
@@ -61,10 +60,10 @@ public class OrderGetListTests extends Steps {
         List<String> orders = response.extract().path("orders");
         int ordersQuantity = orders.size();
 
-        checkGetUserOrderSuccess(response);
-        checkGetUserOrderAreNotEmpty(response);
-        checkGetUserOrderHasProperOrderId(response, createdOrderId);
-        checkGetUserOrderHasAllUserOrdersOnly(response, ordersQuantity);
+        check.checkGetUserOrderSuccess(response);
+        check.checkGetUserOrderAreNotEmpty(response);
+        check.checkGetUserOrderHasProperOrderId(response, createdOrderId);
+        check.checkGetUserOrderHasAllUserOrdersOnly(response, ordersQuantity);
 
     }
 

@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.UserData;
+import site.nomoreparties.stellarburgers.helpers.Checks;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
@@ -16,6 +17,7 @@ public class UserLoginTests extends Steps {
     private final Utils utils = new Utils();
     private String accessToken;
     private UserData basicUserData;
+    private Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по авторизации")
@@ -45,7 +47,7 @@ public class UserLoginTests extends Steps {
                 .addPassword(basicUserData.getPassword());
 
         ValidatableResponse response = login(accessToken, loginData);
-        checkUserLoginSuccessfully(response);
+        check.checkUserLoginSuccessfully(response);
 
     }
 
@@ -61,8 +63,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        checkUserLoginFailed(response);
-        checkUserLoginFailMessageIsCorrect(response);
+        check.checkUserLoginFailed(response);
+        check.checkUserLoginFailMessageIsCorrect(response);
 
     }
 
@@ -77,8 +79,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        checkUserLoginFailed(response);
-        checkUserLoginFailMessageIsCorrect(response);
+        check.checkUserLoginFailed(response);
+        check.checkUserLoginFailMessageIsCorrect(response);
 
     }
 
@@ -93,8 +95,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        checkUserLoginFailed(response);
-        checkUserLoginFailMessageIsCorrect(response);
+        check.checkUserLoginFailed(response);
+        check.checkUserLoginFailMessageIsCorrect(response);
     }
 
     @Test
@@ -108,8 +110,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        checkUserLoginFailed(response);
-        checkUserLoginFailMessageIsCorrect(response);
+        check.checkUserLoginFailed(response);
+        check.checkUserLoginFailMessageIsCorrect(response);
     }
 
 }

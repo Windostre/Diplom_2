@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.OrderData;
 import site.nomoreparties.stellarburgers.clients.UserData;
+import site.nomoreparties.stellarburgers.helpers.Checks;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
@@ -18,6 +19,7 @@ public class OrderCreationAuthorizedTests extends Steps {
     private OrderData orderData;
     private UserData userData;
     private String accessToken;
+    private Checks check = new Checks();
 
 
     @Before
@@ -51,15 +53,15 @@ public class OrderCreationAuthorizedTests extends Steps {
         String ownerName = response.extract().path("order.owner.name");
         String ownerEmail = response.extract().path("order.owner.email");
 
-        checkOrderCreatedSuccessfully(response);
-        checkOrderCreatedHasName(response);
-        checkOrderCreatedHasOrderId(response);
-        checkOrderCreatedHasIngredients(response);
-        checkOrderCreatedHasUserData(response, ownerName, ownerEmail);
-        checkOrderCreatedHasDateCreatedAt(response);
-        checkOrderCreatedHasStatusDone(response);
-        checkOrderCreatedHasOrderNumber(response);
-        checkOrderCreatedHasPrice(response);
+        check.checkOrderCreatedSuccessfully(response);
+        check.checkOrderCreatedHasName(response);
+        check.checkOrderCreatedHasOrderId(response);
+        check.checkOrderCreatedHasIngredients(response);
+        check.checkOrderCreatedHasUserData(response, ownerName, ownerEmail);
+        check.checkOrderCreatedHasDateCreatedAt(response);
+        check.checkOrderCreatedHasStatusDone(response);
+        check.checkOrderCreatedHasOrderNumber(response);
+        check.checkOrderCreatedHasPrice(response);
 
     }
 }

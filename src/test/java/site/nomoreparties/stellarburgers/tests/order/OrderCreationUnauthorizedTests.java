@@ -8,6 +8,7 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.OrderData;
+import site.nomoreparties.stellarburgers.helpers.Checks;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
@@ -18,7 +19,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
     private final Utils utils = new Utils();
     private OrderData orderData;
-    private Integer orderNumber;
+    private Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по созданию заказа")
@@ -35,9 +36,9 @@ public class OrderCreationUnauthorizedTests extends Steps {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        checkOrderCreatedSuccessfully(response);
-        checkOrderCreatedHasName(response);
-        checkOrderCreatedHasOrderNumber(response);
+        check.checkOrderCreatedSuccessfully(response);
+        check.checkOrderCreatedHasName(response);
+        check.checkOrderCreatedHasOrderNumber(response);
 
     }
 
@@ -49,8 +50,8 @@ public class OrderCreationUnauthorizedTests extends Steps {
         orderData = new OrderData(ingredients);
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        checkOrderCreateFail(response);
-        checkOrderCreateNoIngredientsErrorMessageIsCorrect(response);
+        check.checkOrderCreateFail(response);
+        check.checkOrderCreateNoIngredientsErrorMessageIsCorrect(response);
 
     }
 
@@ -62,7 +63,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        checkOrderCreateFailStatus500(response);
+        check.checkOrderCreateFailStatus500(response);
 
     }
 
@@ -74,7 +75,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        checkOrderCreateFailStatus500(response);
+        check.checkOrderCreateFailStatus500(response);
 
     }
 

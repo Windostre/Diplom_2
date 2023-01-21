@@ -9,14 +9,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.UserData;
+import site.nomoreparties.stellarburgers.helpers.Checks;
 import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
 public class UserCreationTests extends Steps {
-    private final Utils utils = new Utils();
-    private String refreshToken;
+    private Utils utils = new Utils();
     private String accessToken;
     private UserData basicUserData;
+    private Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по созданию пользователя")
@@ -41,9 +42,9 @@ public class UserCreationTests extends Steps {
     public void createUserSuccessReturnStatus200ok() {
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateSuccessfully(response);
-        checkAccessTokenReceived(response);
-        checkRefreshTokenReceived(response);
+        check.checkUserCreateSuccessfully(response);
+        check.checkAccessTokenReceived(response);
+        check.checkRefreshTokenReceived(response);
 
         accessToken = response.extract().path("accessToken").toString().substring(7); //для удаления
 
@@ -57,8 +58,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setEmail(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFail(response);
-        checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -70,8 +71,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setEmail("");
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFail(response);
-        checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -83,8 +84,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setPassword(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFail(response);
-        checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -96,8 +97,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setPassword("");
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFail(response);
-        checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -109,8 +110,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setName(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFail(response);
-        checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -122,8 +123,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setName("");
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFail(response);
-        checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -136,8 +137,8 @@ public class UserCreationTests extends Steps {
         UserData dublicateUser = new UserData(basicUserData.getEmail(), utils.generateRandomPassword(), utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
-        checkUserCreateFail(response);
-        checkUserCreateDublicateErrorMessageIsCorrect(response);
+        check.checkUserCreateFail(response);
+        check.checkUserCreateDublicateErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -151,9 +152,9 @@ public class UserCreationTests extends Steps {
         ValidatableResponse response = createUser(dublicateUser);
         accessToken = response.extract().path("accessToken").toString().substring(7); // для удаления
 
-        checkUserCreateSuccessfully(response);
-        checkAccessTokenReceived(response);
-        checkRefreshTokenReceived(response);
+        check.checkUserCreateSuccessfully(response);
+        check.checkAccessTokenReceived(response);
+        check.checkRefreshTokenReceived(response);
 
     }
 
@@ -168,9 +169,9 @@ public class UserCreationTests extends Steps {
         ValidatableResponse response = createUser(dublicateUser);
         accessToken = response.extract().path("accessToken").toString().substring(7); // для удаления
 
-        checkUserCreateSuccessfully(response);
-        checkAccessTokenReceived(response);
-        checkRefreshTokenReceived(response);
+        check.checkUserCreateSuccessfully(response);
+        check.checkAccessTokenReceived(response);
+        check.checkRefreshTokenReceived(response);
 
     }
 
@@ -182,7 +183,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUser(basicUserData);
 
-        checkUserCreateFailStatusIsNot200(response);
+        check.checkUserCreateFailStatusIsNot200(response);
 
     }
 
@@ -196,7 +197,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        checkUserCreateFailStatusIsNot200(response);
+        check.checkUserCreateFailStatusIsNot200(response);
 
     }
 
@@ -210,7 +211,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        checkUserCreateFailStatusIsNot200(response);
+        check.checkUserCreateFailStatusIsNot200(response);
 
     }
 
@@ -224,7 +225,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        checkUserCreateFailStatusIsNot200(response);
+        check.checkUserCreateFailStatusIsNot200(response);
 
     }
 
