@@ -42,9 +42,9 @@ public class UserCreationTests extends Steps {
     public void createUserSuccessReturnStatus200ok() {
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateSuccessfully(response);
-        check.checkAccessTokenReceived(response);
-        check.checkRefreshTokenReceived(response);
+        check.userCreateSuccessfully(response);
+        check.accessTokenReceived(response);
+        check.refreshTokenReceived(response);
 
         accessToken = response.extract().path("accessToken").toString().substring(7); //для удаления
 
@@ -58,8 +58,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setEmail(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -71,8 +71,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setEmail("");
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -84,8 +84,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setPassword(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -97,8 +97,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setPassword("");
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -110,8 +110,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setName(null);
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -123,8 +123,8 @@ public class UserCreationTests extends Steps {
         basicUserData.setName("");
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateValidationErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateValidationErrorMessageIsCorrect(response);
 
     }
 
@@ -137,8 +137,8 @@ public class UserCreationTests extends Steps {
         UserData dublicateUser = new UserData(basicUserData.getEmail(), utils.generateRandomPassword(), utils.generateRandomName());
         ValidatableResponse response = createUser(dublicateUser);
 
-        check.checkUserCreateFail(response);
-        check.checkUserCreateDublicateErrorMessageIsCorrect(response);
+        check.userCreateFail(response);
+        check.userCreateDublicateErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -152,9 +152,9 @@ public class UserCreationTests extends Steps {
         ValidatableResponse response = createUser(dublicateUser);
         accessToken = response.extract().path("accessToken").toString().substring(7); // для удаления
 
-        check.checkUserCreateSuccessfully(response);
-        check.checkAccessTokenReceived(response);
-        check.checkRefreshTokenReceived(response);
+        check.userCreateSuccessfully(response);
+        check.accessTokenReceived(response);
+        check.refreshTokenReceived(response);
 
     }
 
@@ -169,9 +169,9 @@ public class UserCreationTests extends Steps {
         ValidatableResponse response = createUser(dublicateUser);
         accessToken = response.extract().path("accessToken").toString().substring(7); // для удаления
 
-        check.checkUserCreateSuccessfully(response);
-        check.checkAccessTokenReceived(response);
-        check.checkRefreshTokenReceived(response);
+        check.userCreateSuccessfully(response);
+        check.accessTokenReceived(response);
+        check.refreshTokenReceived(response);
 
     }
 
@@ -183,7 +183,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUser(basicUserData);
 
-        check.checkUserCreateFailStatusIsNot200(response);
+        check.userCreateFailStatusIsNot200(response);
 
     }
 
@@ -197,7 +197,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        check.checkUserCreateFailStatusIsNot200(response);
+        check.userCreateFailStatusIsNot200(response);
 
     }
 
@@ -211,7 +211,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        check.checkUserCreateFailStatusIsNot200(response);
+        check.userCreateFailStatusIsNot200(response);
 
     }
 
@@ -225,7 +225,7 @@ public class UserCreationTests extends Steps {
 
         ValidatableResponse response = createUserString(user);
 
-        check.checkUserCreateFailStatusIsNot200(response);
+        check.userCreateFailStatusIsNot200(response);
 
     }
 

@@ -53,15 +53,16 @@ public class OrderCreationAuthorizedTests extends Steps {
         String ownerName = response.extract().path("order.owner.name");
         String ownerEmail = response.extract().path("order.owner.email");
 
-        check.checkOrderCreatedSuccessfully(response);
-        check.checkOrderCreatedHasName(response);
-        check.checkOrderCreatedHasOrderId(response);
-        check.checkOrderCreatedHasIngredients(response);
-        check.checkOrderCreatedHasUserData(response, ownerName, ownerEmail);
-        check.checkOrderCreatedHasDateCreatedAt(response);
-        check.checkOrderCreatedHasStatusDone(response);
-        check.checkOrderCreatedHasOrderNumber(response);
-        check.checkOrderCreatedHasPrice(response);
+        check.orderCreatedSuccessfully(response);
+        check.orderCreatedHasName(response);
+        check.orderCreatedHasOrderId(response);
+        check.orderCreatedHasIngredients(response);
+        check.orderCreatedHasUserData(response, ownerName, ownerEmail);
+        check.orderCreatedHasDateCreatedAt(response);
+        check.orderCreatedHasDateUpdatedAt(response);
+        check.orderCreatedHasStatusDone(response);
+        check.orderCreatedHasOrderNumber(response);
+        check.orderCreatedHasPrice(response);
 
     }
 }

@@ -45,8 +45,8 @@ public class OrderGetListTests extends Steps {
         accessToken = "";
         ValidatableResponse response = getOrders(accessToken);
 
-        check.checkGetUserOrderFail(response);
-        check.checkGetUserOrderErrorMessageIsCorrect(response);
+        check.getUserOrderFail(response);
+        check.getUserOrderErrorMessageIsCorrect(response);
 
     }
 
@@ -60,10 +60,10 @@ public class OrderGetListTests extends Steps {
         List<String> orders = response.extract().path("orders");
         int ordersQuantity = orders.size();
 
-        check.checkGetUserOrderSuccess(response);
-        check.checkGetUserOrderAreNotEmpty(response);
-        check.checkGetUserOrderHasProperOrderId(response, createdOrderId);
-        check.checkGetUserOrderHasAllUserOrdersOnly(response, ordersQuantity);
+        check.getUserOrderSuccess(response);
+        check.getUserOrderAreNotEmpty(response);
+        check.getUserOrderHasProperOrderId(response, createdOrderId);
+        check.getUserOrderHasAllUserOrdersOnly(response, ordersQuantity);
 
     }
 

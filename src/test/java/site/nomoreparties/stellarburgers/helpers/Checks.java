@@ -11,238 +11,238 @@ import static org.hamcrest.Matchers.*;
 public class Checks {
 
     @Step("Проверка. Пользователь успешно авторизован")
-    public static void checkUserLoginSuccessfully(ValidatableResponse response) {
+    public void userLoginSuccessfully(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
                 .body("success", is(true));
     }
 
     @Step("Проверка. Пользователь не смог авторизоваться")
-    public static void checkUserLoginFailed(ValidatableResponse response) {
+    public void userLoginFailed(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(401)
                 .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке авторизации корректно")
-    public static void checkUserLoginFailMessageIsCorrect(ValidatableResponse response) {
+    public void userLoginFailMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("email or password are incorrect"));
     }
 
     @Step("Проверка. Пользователь успешно создан")
-    public static void checkUserCreateSuccessfully(ValidatableResponse response) {
+    public void userCreateSuccessfully(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
                 .body("success", is(true));
     }
 
     @Step("Проверка. Получен accessToken")
-    public static void checkAccessTokenReceived(ValidatableResponse response) {
+    public void accessTokenReceived(ValidatableResponse response) {
         response.assertThat()
                 .body("accessToken", startsWith("Bearer "));
     }
 
     @Step("Проверка. Получен refreshToken")
-    public static void checkRefreshTokenReceived(ValidatableResponse response) {
+    public void refreshTokenReceived(ValidatableResponse response) {
         response.assertThat()
                 .body("refreshToken", is(notNullValue()));
     }
 
     @Step("Проверка. Пользователь не создан")
-    public static void checkUserCreateFail(ValidatableResponse response) {
+    public void userCreateFail(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(403)
                 .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке создания корректно")
-    public static void checkUserCreateValidationErrorMessageIsCorrect(ValidatableResponse response) {
+    public void userCreateValidationErrorMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("Email, password and name are required fields"));
     }
 
     @Step("Проверка. Сообщение об ошибке создания корректно")
-    public static void checkUserCreateDublicateErrorMessageIsCorrect(ValidatableResponse response) {
+    public void userCreateDublicateErrorMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("User already exists"));
     }
 
     @Step("Проверка. Пользователь не создан. Ожидаемый статус не 200")
-    public static void checkUserCreateFailStatusIsNot200(ValidatableResponse response) {
+    public void userCreateFailStatusIsNot200(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(is(not(200)))
                 .body("success", is(false));
     }
 
     @Step("Проверка. Данные пользователя не обновлены")
-    public static void checkUserUpdateUnauthorisedFail(ValidatableResponse response) {
+    public void userUpdateUnauthorisedFail(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(401)
                 .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке корректно")
-    public static void checkUserUpdateUnauthorizedErrorMessageIsCorrect(ValidatableResponse response) {
+    public void userUpdateUnauthorizedErrorMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("You should be authorised"));
     }
 
 
     @Step("Проверка. Данные пользователя успешно обновлены")
-    public static void checkUserUpdateSuccessfully(ValidatableResponse response) {
+    public void userUpdateSuccessfully(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
                 .body("success", is(true));
     }
 
     @Step("Проверка. Почта пользователя успешно обновлена")
-    public static void checkUserUpdateNewEmailIsSet(ValidatableResponse response, String newEmail) {
+    public void userUpdateNewEmailIsSet(ValidatableResponse response, String newEmail) {
         response.assertThat()
                 .body("user.email", equalTo(newEmail));
     }
 
     @Step("Проверка. Имя пользователя успешно обновлено")
-    public static void checkUserUpdateNewNameIsSet(ValidatableResponse response, String newEmail) {
+    public void userUpdateNewNameIsSet(ValidatableResponse response, String newEmail) {
         response.assertThat()
                 .body("user.name", equalTo(newEmail));
     }
 
     @Step("Проверка. Данные пользователя не обновлены. Ожидаемый статус не 200")
-    public static void checkUserUpdateFailStatusIsNot200(ValidatableResponse response) {
+    public void userUpdateFailStatusIsNot200(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(is(not(200)))
                 .body("success", is(false));
     }
 
     @Step("Проверка. Данные пользователя не обновлены")
-    public static void checkUserUpdateDublicateEmailFail(ValidatableResponse response) {
+    public void userUpdateDublicateEmailFail(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(403)
                 .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке корректно")
-    public static void checkUserUpdateDublicateErrorMessageIsCorrect(ValidatableResponse response) {
+    public void userUpdateDublicateErrorMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("User with such email already exists"));
     }
 
     @Step("Проверка. Заказ создан успешно")
-    public static void checkOrderCreatedSuccessfully(ValidatableResponse response) {
+    public void orderCreatedSuccessfully(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
                 .body("success", is(true));
     }
 
     @Step("Проверка. В заказе есть наименование")
-    public static void checkOrderCreatedHasName(ValidatableResponse response) {
+    public void orderCreatedHasName(ValidatableResponse response) {
         response.assertThat()
                 .body("name", notNullValue());
     }
 
     @Step("Проверка. В заказу присвоен id")
-    public static void checkOrderCreatedHasOrderId(ValidatableResponse response) {
+    public void orderCreatedHasOrderId(ValidatableResponse response) {
         response.assertThat()
                 .body("order._id", notNullValue());
     }
 
     @Step("Проверка. В заказе переданы ингредиенты")
-    public static void checkOrderCreatedHasIngredients(ValidatableResponse response) {
+    public void orderCreatedHasIngredients(ValidatableResponse response) {
         response.assertThat()
                 .body("order.ingredients", notNullValue());
     }
 
     @Step("Проверка. В заказе переданы данные пользователя")
-    public static void checkOrderCreatedHasUserData(ValidatableResponse response, String ownerName, String ownerEmail) {
+    public void orderCreatedHasUserData(ValidatableResponse response, String ownerName, String ownerEmail) {
         response.assertThat()
                 .body("order.owner.name", equalTo(ownerName))
                 .body("order.owner.email", equalTo(ownerEmail));
     }
 
     @Step("Проверка. В заказе передана есть дата создания заказа")
-    public static void checkOrderCreatedHasDateCreatedAt(ValidatableResponse response) {
+    public void orderCreatedHasDateCreatedAt(ValidatableResponse response) {
         response.assertThat()
                 .body("order.owner.createdAt", notNullValue());
     }
 
     @Step("Проверка. В заказе передана есть дата обновления заказа")
-    public static void checkOrderCreatedHasDateUpdatedAt(ValidatableResponse response) {
+    public void orderCreatedHasDateUpdatedAt(ValidatableResponse response) {
         response.assertThat()
                 .body("order.owner.updatedAt", notNullValue());
     }
 
     @Step("Проверка. В заказ в статусе Done")
-    public static void checkOrderCreatedHasStatusDone(ValidatableResponse response) {
+    public void orderCreatedHasStatusDone(ValidatableResponse response) {
         response.assertThat()
                 .body("order.status", equalTo("done"));
     }
 
     @Step("Проверка. В заказу присвоен номер")
-    public static void checkOrderCreatedHasOrderNumber(ValidatableResponse response) {
+    public void orderCreatedHasOrderNumber(ValidatableResponse response) {
         response.assertThat()
                 .body("order.number", greaterThan(0));
     }
 
     @Step("Проверка. В заказе есть цена")
-    public static void checkOrderCreatedHasPrice(ValidatableResponse response) {
+    public void orderCreatedHasPrice(ValidatableResponse response) {
         response.assertThat()
                 .body("order.number", greaterThan(0));
     }
 
     @Step("Проверка. Заказ не создан")
-    public static void checkOrderCreateFail(ValidatableResponse response) {
+    public void orderCreateFail(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(400)
                 .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке корректно")
-    public static void checkOrderCreateNoIngredientsErrorMessageIsCorrect(ValidatableResponse response) {
+    public void orderCreateNoIngredientsErrorMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("Ingredient ids must be provided"));
     }
 
     @Step("Проверка. Заказ не создан")
-    public static void checkOrderCreateFailStatus500(ValidatableResponse response) {
+    public void orderCreateFailStatus500(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(500);
     }
 
     @Step("Проверка. Заказы пользователя не получены")
-    public static void checkGetUserOrderFail(ValidatableResponse response) {
+    public void getUserOrderFail(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(401)
                 .body("success", is(false));
     }
 
     @Step("Проверка. Сообщение об ошибке корректно")
-    public static void checkGetUserOrderErrorMessageIsCorrect(ValidatableResponse response) {
+    public void getUserOrderErrorMessageIsCorrect(ValidatableResponse response) {
         response.assertThat()
                 .body("message", equalTo("You should be authorised"));
     }
 
     @Step("Проверка. Заказы пользователя получены успешно")
-    public static void checkGetUserOrderSuccess(ValidatableResponse response) {
+    public void getUserOrderSuccess(ValidatableResponse response) {
         response.assertThat()
                 .statusCode(200)
                 .body("success", is(true));
     }
 
     @Step("Проверка. В заказы пользователя не пустые")
-    public static void checkGetUserOrderAreNotEmpty(ValidatableResponse response) {
+    public void getUserOrderAreNotEmpty(ValidatableResponse response) {
         response.assertThat()
                 .body("orders", not(emptyArray()));
     }
 
     @Step("Проверка. В заказах полученных передан правильный id заказа")
-    public static void checkGetUserOrderHasProperOrderId(ValidatableResponse response, String createdOrderId) {
+    public void getUserOrderHasProperOrderId(ValidatableResponse response, String createdOrderId) {
         response.assertThat()
                 .body("orders._id[0]", equalTo(createdOrderId));
     }
 
     @Step("Проверка. Получены все заказаы пользователя")
-    public static void checkGetUserOrderHasAllUserOrdersOnly(ValidatableResponse response, int ordersQuantity) {
+    public void getUserOrderHasAllUserOrdersOnly(ValidatableResponse response, int ordersQuantity) {
         response.assertThat()
                 .body("total", equalTo(ordersQuantity));
     }

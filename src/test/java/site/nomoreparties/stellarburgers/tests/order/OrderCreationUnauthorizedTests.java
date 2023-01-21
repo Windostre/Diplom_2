@@ -36,9 +36,9 @@ public class OrderCreationUnauthorizedTests extends Steps {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        check.checkOrderCreatedSuccessfully(response);
-        check.checkOrderCreatedHasName(response);
-        check.checkOrderCreatedHasOrderNumber(response);
+        check.orderCreatedSuccessfully(response);
+        check.orderCreatedHasName(response);
+        check.orderCreatedHasOrderNumber(response);
 
     }
 
@@ -50,8 +50,8 @@ public class OrderCreationUnauthorizedTests extends Steps {
         orderData = new OrderData(ingredients);
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        check.checkOrderCreateFail(response);
-        check.checkOrderCreateNoIngredientsErrorMessageIsCorrect(response);
+        check.orderCreateFail(response);
+        check.orderCreateNoIngredientsErrorMessageIsCorrect(response);
 
     }
 
@@ -63,7 +63,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        check.checkOrderCreateFailStatus500(response);
+        check.orderCreateFailStatus500(response);
 
     }
 
@@ -75,7 +75,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
-        check.checkOrderCreateFailStatus500(response);
+        check.orderCreateFailStatus500(response);
 
     }
 

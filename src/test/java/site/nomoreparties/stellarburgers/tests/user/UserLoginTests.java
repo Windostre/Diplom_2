@@ -47,7 +47,7 @@ public class UserLoginTests extends Steps {
                 .addPassword(basicUserData.getPassword());
 
         ValidatableResponse response = login(accessToken, loginData);
-        check.checkUserLoginSuccessfully(response);
+        check.userLoginSuccessfully(response);
 
     }
 
@@ -63,8 +63,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        check.checkUserLoginFailed(response);
-        check.checkUserLoginFailMessageIsCorrect(response);
+        check.userLoginFailed(response);
+        check.userLoginFailMessageIsCorrect(response);
 
     }
 
@@ -79,8 +79,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        check.checkUserLoginFailed(response);
-        check.checkUserLoginFailMessageIsCorrect(response);
+        check.userLoginFailed(response);
+        check.userLoginFailMessageIsCorrect(response);
 
     }
 
@@ -95,8 +95,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        check.checkUserLoginFailed(response);
-        check.checkUserLoginFailMessageIsCorrect(response);
+        check.userLoginFailed(response);
+        check.userLoginFailMessageIsCorrect(response);
     }
 
     @Test
@@ -110,8 +110,8 @@ public class UserLoginTests extends Steps {
 
         ValidatableResponse response = login(accessToken, loginData);
 
-        check.checkUserLoginFailed(response);
-        check.checkUserLoginFailMessageIsCorrect(response);
+        check.userLoginFailed(response);
+        check.userLoginFailMessageIsCorrect(response);
     }
 
 }

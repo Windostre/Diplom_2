@@ -55,8 +55,8 @@ public class UserUpdateTests extends Steps {
                 .addName(updatedName);
         ValidatableResponse response = updateUserData(updatedUserData, "");
 
-        check.checkUserUpdateUnauthorisedFail(response);
-        check.checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
+        check.userUpdateUnauthorisedFail(response);
+        check.userUpdateUnauthorizedErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -71,8 +71,8 @@ public class UserUpdateTests extends Steps {
         logout(refreshToken);
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        check.checkUserUpdateUnauthorisedFail(response);
-        check.checkUserUpdateUnauthorizedErrorMessageIsCorrect(response);
+        check.userUpdateUnauthorisedFail(response);
+        check.userUpdateUnauthorizedErrorMessageIsCorrect(response);
     }
 
     @Test
@@ -86,9 +86,9 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        check.checkUserUpdateSuccessfully(response);
-        check.checkUserUpdateNewEmailIsSet(response, updatedEmail);
-        check.checkUserUpdateNewNameIsSet(response, updatedName);
+        check.userUpdateSuccessfully(response);
+        check.userUpdateNewEmailIsSet(response, updatedEmail);
+        check.userUpdateNewNameIsSet(response, updatedName);
 
     }
 
@@ -102,7 +102,7 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        check.checkUserUpdateFailStatusIsNot200(response);
+        check.userUpdateFailStatusIsNot200(response);
 
     }
 
@@ -116,7 +116,7 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        check.checkUserUpdateFailStatusIsNot200(response);
+        check.userUpdateFailStatusIsNot200(response);
 
     }
 
@@ -131,8 +131,8 @@ public class UserUpdateTests extends Steps {
 
         ValidatableResponse response = updateUserData(updatedUserData, accessToken);
 
-        check.checkUserUpdateDublicateEmailFail(response);
-        check.checkUserUpdateDublicateErrorMessageIsCorrect(response);
+        check.userUpdateDublicateEmailFail(response);
+        check.userUpdateDublicateErrorMessageIsCorrect(response);
 
     }
 
