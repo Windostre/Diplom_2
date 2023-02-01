@@ -15,10 +15,9 @@ public class Utils {
     Faker faker = new Faker();
 
     public UserData generateRandomUser() {
-        String email = faker.internet().emailAddress();
-        String password = faker.internet()
-                .password(6, 12, true, true, true);
-        String name = faker.name().firstName();
+        String email = generateRandomEmail();
+        String password = generateRandomPassword();
+        String name = generateRandomName();
         return new UserData(email, password, name);
 
     }
@@ -44,9 +43,9 @@ public class Utils {
 
     public String getRandomIngredient(ValidatableResponse response) {
         List<String> ingredients = response.extract().path("data._id");
-        int randomIgredient = random.nextInt(ingredients.size());
+        int randomIngredient = random.nextInt(ingredients.size());
 
-        return ingredients.get(randomIgredient);
+        return ingredients.get(randomIngredient);
     }
 
     public OrderData generateValidIngredientsList(ValidatableResponse response) {

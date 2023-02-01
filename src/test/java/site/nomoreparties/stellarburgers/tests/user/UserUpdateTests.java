@@ -124,7 +124,7 @@ public class UserUpdateTests extends Steps {
     @DisplayName("Изменить данные пользователя. E-mail уже использован. Провал")
     @Description("Проверяет, что нельзя обновить пользователя email на неуникальный." +
             "Получен статус 403 и сообщение об ошибке")
-    public void updateAuthorizedUserFailEmailAlreadyExistReceiveStatus403Forbiden() {
+    public void updateAuthorizedUserFailEmailAlreadyExistReceiveStatus403Forbidden() {
         UserData updatedUserData = new UserData()
                 .addEmail(CONSTANT_USER_EMAIL)
                 .addName(basicUserData.getName());
