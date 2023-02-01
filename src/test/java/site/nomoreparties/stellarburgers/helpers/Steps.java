@@ -46,9 +46,8 @@ public class Steps extends Constants {
     }
 
     @Step("Авторизоваться")
-    protected ValidatableResponse login(String accessToken, UserData loginData) {
+    protected ValidatableResponse login(UserData loginData) {
         ValidatableResponse response = given().log().all()
-                .auth().oauth2(accessToken)
                 .header("Content-type", "application/json")
                 .body(loginData.buildJSONToString())
                 .when()

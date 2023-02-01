@@ -46,7 +46,7 @@ public class UserLoginTests extends Steps {
                 .addEmail(basicUserData.getEmail())
                 .addPassword(basicUserData.getPassword());
 
-        ValidatableResponse response = login(accessToken, loginData);
+        ValidatableResponse response = login(loginData);
         check.userLoginSuccessfully(response);
 
     }
@@ -61,7 +61,7 @@ public class UserLoginTests extends Steps {
                 .addEmail(utils.generateRandomEmail())
                 .addPassword(basicUserData.getPassword());
 
-        ValidatableResponse response = login(accessToken, loginData);
+        ValidatableResponse response = login(loginData);
 
         check.userLoginFailed(response);
         check.userLoginFailMessageIsCorrect(response);
@@ -77,7 +77,7 @@ public class UserLoginTests extends Steps {
                 .addEmail(basicUserData.getEmail())
                 .addPassword(utils.generateRandomPassword());
 
-        ValidatableResponse response = login(accessToken, loginData);
+        ValidatableResponse response = login(loginData);
 
         check.userLoginFailed(response);
         check.userLoginFailMessageIsCorrect(response);
@@ -93,7 +93,7 @@ public class UserLoginTests extends Steps {
                 .addEmail("")
                 .addPassword(basicUserData.getPassword());
 
-        ValidatableResponse response = login(accessToken, loginData);
+        ValidatableResponse response = login(loginData);
 
         check.userLoginFailed(response);
         check.userLoginFailMessageIsCorrect(response);
@@ -108,7 +108,7 @@ public class UserLoginTests extends Steps {
                 .addEmail(basicUserData.getEmail())
                 .addPassword("");
 
-        ValidatableResponse response = login(accessToken, loginData);
+        ValidatableResponse response = login(loginData);
 
         check.userLoginFailed(response);
         check.userLoginFailMessageIsCorrect(response);
