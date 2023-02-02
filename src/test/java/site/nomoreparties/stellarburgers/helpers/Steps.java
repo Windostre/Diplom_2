@@ -18,7 +18,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body(user)
                 .when()
-                .post(API_USER_REGISTER)
+                .post(USER_REGISTER)
                 .then();
         return response;
     }
@@ -29,7 +29,7 @@ public class Steps extends Constants {
                 .auth().oauth2(accessToken)
                 .header("Content-type", "application/json")
                 .when()
-                .delete(API_USER_DATA)
+                .delete(USER_DATA)
                 .then().log().all();
         return response;
     }
@@ -40,7 +40,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body(user.buildJSONToString())
                 .when()
-                .post(API_USER_REGISTER)
+                .post(USER_REGISTER)
                 .then();
         return response;
     }
@@ -51,7 +51,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body(loginData.buildJSONToString())
                 .when()
-                .post(API_USER_LOGIN)
+                .post(USER_LOGIN)
                 .then().log().status();
         return response;
     }
@@ -63,7 +63,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body(userData.buildJSONToString())
                 .when()
-                .patch(API_USER_DATA)
+                .patch(USER_DATA)
                 .then().log().all();
         return response;
     }
@@ -74,7 +74,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body("{\"token\": " + "\"" + refreshToken + "\"}")
                 .when()
-                .post(API_USER_LOGOUT)
+                .post(USER_LOGOUT)
                 .then().log().all();
         return response;
     }
@@ -84,7 +84,7 @@ public class Steps extends Constants {
         ValidatableResponse response = given()
                 .header("Content-type", "application/json")
                 .when()
-                .get(API_INGREDIENTS)
+                .get(INGREDIENTS)
                 .then();
         return response;
     }
@@ -95,7 +95,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body(orderData)
                 .when()
-                .post(API_ORDERS)
+                .post(ORDERS)
                 .then().log().all();
         return response;
     }
@@ -107,7 +107,7 @@ public class Steps extends Constants {
                 .header("Content-type", "application/json")
                 .body(orderData)
                 .when()
-                .post(API_ORDERS)
+                .post(ORDERS)
                 .then().log().all();
         return response;
     }
@@ -118,7 +118,7 @@ public class Steps extends Constants {
                 .auth().oauth2(accessToken)
                 .header("Content-type", "application/json")
                 .when()
-                .get(API_ORDERS)
+                .get(ORDERS)
                 .then().log().all();
         return response;
     }

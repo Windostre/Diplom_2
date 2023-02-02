@@ -1,5 +1,6 @@
 package site.nomoreparties.stellarburgers.clients;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,14 +9,12 @@ import java.util.List;
 /**
  * Описание ключей заказа для целей api
  */
+@AllArgsConstructor
+@Getter
+@Setter
 public class OrderData {
-    @Getter
-    @Setter
-    private List<String> ingredients;
 
-    public OrderData(List<String> ingredients) {
-        this.ingredients = ingredients;
-    }
+    private List<String> ingredients;
 
 
 }

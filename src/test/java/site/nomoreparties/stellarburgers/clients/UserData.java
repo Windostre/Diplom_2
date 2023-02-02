@@ -1,7 +1,6 @@
 package site.nomoreparties.stellarburgers.clients;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,27 +8,20 @@ import java.util.List;
 /**
  * Описание ключей пользователя для целей api
  */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserData {
+
+    @Getter(AccessLevel.NONE)
     private final List<String> builder = new ArrayList<>(); // для создания шаблона объекта
-    @Getter
-    @Setter
+
     private String email;
-    @Getter
-    @Setter
+
     private String password;
-    @Getter
-    @Setter
+
     private String name;
-
-    public UserData(String email, String password, String name) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-    }
-
-    public UserData() {
-
-    }
 
     public UserData addEmail(String email) {
         builder.add("\"email\": " + "\"" + email + "\"");

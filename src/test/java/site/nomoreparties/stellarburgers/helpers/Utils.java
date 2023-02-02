@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Вспомогательльные методы, генерации данных
+ */
+
 public class Utils {
     Random random = new Random();
     Faker faker = new Faker();

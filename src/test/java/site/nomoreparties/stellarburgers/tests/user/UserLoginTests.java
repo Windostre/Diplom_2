@@ -17,7 +17,7 @@ public class UserLoginTests extends Steps {
     private final Utils utils = new Utils();
     private String accessToken;
     private UserData basicUserData;
-    private Checks check = new Checks();
+    private final Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по авторизации")

@@ -21,7 +21,7 @@ public class UserUpdateTests extends Steps {
     private UserData basicUserData;
     private String updatedEmail;
     private String updatedName;
-    private Checks check = new Checks();
+    private final Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по изменению данных пользователя")

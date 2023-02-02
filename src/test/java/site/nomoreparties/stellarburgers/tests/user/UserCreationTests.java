@@ -14,10 +14,10 @@ import site.nomoreparties.stellarburgers.helpers.Steps;
 import site.nomoreparties.stellarburgers.helpers.Utils;
 
 public class UserCreationTests extends Steps {
-    private Utils utils = new Utils();
+    private final Utils utils = new Utils();
     private String accessToken;
     private UserData basicUserData;
-    private Checks check = new Checks();
+    private final Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по созданию пользователя")

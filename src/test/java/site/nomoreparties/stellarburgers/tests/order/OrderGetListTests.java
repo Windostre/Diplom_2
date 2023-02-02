@@ -17,8 +17,8 @@ import java.util.List;
 
 public class OrderGetListTests extends Steps {
     private final Utils utils = new Utils();
-    private Checks check = new Checks();
     String createdOrderId;
+    private final Checks check = new Checks();
     private OrderData orderData;
     private UserData userData;
     private String accessToken;

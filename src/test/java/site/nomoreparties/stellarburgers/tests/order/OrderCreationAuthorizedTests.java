@@ -19,7 +19,7 @@ public class OrderCreationAuthorizedTests extends Steps {
     private OrderData orderData;
     private UserData userData;
     private String accessToken;
-    private Checks check = new Checks();
+    private final Checks check = new Checks();
 
 
     @Before

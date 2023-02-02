@@ -19,7 +19,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
 
     private final Utils utils = new Utils();
     private OrderData orderData;
-    private Checks check = new Checks();
+    private final Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по созданию заказа")
