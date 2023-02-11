@@ -1,11 +1,8 @@
 package site.nomoreparties.stellarburgers.tests.order;
 
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
-import org.junit.Before;
 import org.junit.Test;
 import site.nomoreparties.stellarburgers.clients.OrderData;
 import site.nomoreparties.stellarburgers.helpers.Checks;
@@ -18,21 +15,14 @@ import java.util.List;
 public class OrderCreationUnauthorizedTests extends Steps {
 
     private final Utils utils = new Utils();
-    private OrderData orderData;
     private final Checks check = new Checks();
-
-    @Before
-    @Step("Выполить предварительные действия для тестов по созданию заказа")
-    public void setUp() {
-        RestAssured.baseURI = BURGER_BASE_URI;
-
-    }
+    private OrderData orderData;
 
     @Test
     @DisplayName("Создание заказа. Пользователь не авторизован. Успешно")
     @Description("Проверяет, что можно создать заказ неавторизованному пользователю." +
             "В ответе получены статус, имя и номер заказа")
-    public void createOrderSuccessReturnStatus200ok() {
+    public void createOrderSuccessReturnStatus200ok() throws InterruptedException {
         orderData = utils.generateValidIngredientsList(getIngredients());
         ValidatableResponse response = createOrderUnauthorized(orderData);
 
@@ -45,7 +35,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     @Test
     @DisplayName("Создание заказа без ингридиентов. Провал")
     @Description("Проверяет, что нельзя создать заказ без ингридиентов. Получен статус 400 и сообщение об ошибке")
-    public void createOrderFailNoIngredientsReturnStatus404BadRequest() {
+    public void createOrderFailNoIngredientsReturnStatus404BadRequest() throws InterruptedException {
         List<String> ingredients = new ArrayList<>();
         orderData = new OrderData(ingredients);
         ValidatableResponse response = createOrderUnauthorized(orderData);
@@ -58,7 +48,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     @Test
     @DisplayName("Создание заказа только с невалидными ингридиентами. Провал")
     @Description("Проверяет, что нельзя создать заказ с несуществующими ингридиентами. Получен статус 500")
-    public void createOrderFailInvalidIngredientsReturnStatus500InternalServerError() {
+    public void createOrderFailInvalidIngredientsReturnStatus500InternalServerError() throws InterruptedException {
         orderData = utils.generateFakeIngredients();
 
         ValidatableResponse response = createOrderUnauthorized(orderData);
@@ -70,7 +60,7 @@ public class OrderCreationUnauthorizedTests extends Steps {
     @Test
     @DisplayName("Создание заказа с валдиными и невалидными ингридиентов. Провал")
     @Description("Проверяет, что нельзя создать заказ, где присутсвуют несуществующие ингридиенты. Получен статус 500")
-    public void createOrderFailInvalidAndValidIngredientsReturnStatus500InternalServerError() {
+    public void createOrderFailInvalidAndValidIngredientsReturnStatus500InternalServerError() throws InterruptedException {
         orderData = utils.generateFakeAndValidIngredients(getIngredients());
 
         ValidatableResponse response = createOrderUnauthorized(orderData);

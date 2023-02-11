@@ -3,7 +3,6 @@ package site.nomoreparties.stellarburgers.tests.user;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -15,14 +14,13 @@ import site.nomoreparties.stellarburgers.helpers.Utils;
 
 public class UserLoginTests extends Steps {
     private final Utils utils = new Utils();
+    private final Checks check = new Checks();
     private String accessToken;
     private UserData basicUserData;
-    private final Checks check = new Checks();
 
     @Before
     @Step("Выполить предварительные действия для тестов по авторизации")
-    public void setUp() {
-        RestAssured.baseURI = BURGER_BASE_URI;
+    public void setUp() throws InterruptedException {
         basicUserData = utils.generateRandomUser();
         ValidatableResponse response = createUser(basicUserData);
         accessToken = response.extract().path("accessToken");
@@ -30,7 +28,7 @@ public class UserLoginTests extends Steps {
 
     @After
     @Step("Удалить тестовые данные")
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
         if (accessToken == null || "".equals(accessToken)) {
             return;
         }
@@ -41,7 +39,7 @@ public class UserLoginTests extends Steps {
     @DisplayName("Авторизация пользователя. Успешно")
     @Description("Проверяет, что пользователя успешно авторизуется с валидными паролем и почтой." +
             "Получен статус 200 и сообщение получен accessToken и refreshToken")
-    public void loginUserSuccessReturnStatus200ok() {
+    public void loginUserSuccessReturnStatus200ok() throws InterruptedException {
         UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword(basicUserData.getPassword());
@@ -56,7 +54,7 @@ public class UserLoginTests extends Steps {
     @DisplayName("Авторизация пользователя. Неверный email. Провал")
     @Description("Проверяет, что нельзя авторизоваться с неправильной почтой." +
             "Получен статус 401 и сообщение об ошибке")
-    public void loginUserFailsWrongEmailReturnStatus401Unauthorized() {
+    public void loginUserFailsWrongEmailReturnStatus401Unauthorized() throws InterruptedException {
         UserData loginData = new UserData()
                 .addEmail(utils.generateRandomEmail())
                 .addPassword(basicUserData.getPassword());
@@ -72,7 +70,7 @@ public class UserLoginTests extends Steps {
     @DisplayName("Авторизация пользователя. Неверный пароль. Провал")
     @Description("Проверяет, что нельзя авторизоваться с неправильным паролем." +
             "Получен статус 401 и сообщение об ошибке")
-    public void loginUserFailsWrongPasswordReturnStatus401Unauthorized() {
+    public void loginUserFailsWrongPasswordReturnStatus401Unauthorized() throws InterruptedException {
         UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword(utils.generateRandomPassword());
@@ -88,7 +86,7 @@ public class UserLoginTests extends Steps {
     @DisplayName("Авторизация пользователя. Пустой email. Провал")
     @Description("Проверяет, что нельзя авторизоваться без указания почты." +
             "Получен статус 401 и сообщение об ошибке")
-    public void loginUserFailsEmptyEmailReturnStatus401Unauthorized() {
+    public void loginUserFailsEmptyEmailReturnStatus401Unauthorized() throws InterruptedException {
         UserData loginData = new UserData()
                 .addEmail("")
                 .addPassword(basicUserData.getPassword());
@@ -103,7 +101,7 @@ public class UserLoginTests extends Steps {
     @DisplayName("Авторизация пользователя. Пустой пароль. Провал")
     @Description("Проверяет, что нельзя авторизоваться без указания пароля." +
             "Получен статус 401 и сообщение об ошибке")
-    public void loginUserFailsEmptyPasswordReturnStatus401Unauthorized() {
+    public void loginUserFailsEmptyPasswordReturnStatus401Unauthorized() throws InterruptedException {
         UserData loginData = new UserData()
                 .addEmail(basicUserData.getEmail())
                 .addPassword("");

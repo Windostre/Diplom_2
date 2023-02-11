@@ -1,7 +1,9 @@
 package site.nomoreparties.stellarburgers.helpers;
 
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
 import site.nomoreparties.stellarburgers.clients.OrderData;
 import site.nomoreparties.stellarburgers.clients.UserData;
 
@@ -12,10 +14,17 @@ import static io.restassured.RestAssured.given;
  */
 
 public class Steps extends Constants {
+    protected RequestSpecification spec() throws InterruptedException {
+        Thread.sleep(0);//при 429 добавить ожидание
+        return given()
+                .contentType(ContentType.JSON)
+                .baseUri(BURGER_BASE_URI);
+    }
+
     @Step("Создать пользователя")
-    protected ValidatableResponse createUser(UserData user) {
+    protected ValidatableResponse createUser(UserData user) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .header("Content-type", "application/json")
+                .spec(spec())
                 .body(user)
                 .when()
                 .post(USER_REGISTER)
@@ -24,10 +33,10 @@ public class Steps extends Constants {
     }
 
     @Step("Удалить пользователя")
-    protected ValidatableResponse deleteUser(String accessToken) {
+    protected ValidatableResponse deleteUser(String accessToken) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .auth().oauth2(accessToken)
-                .header("Content-type", "application/json")
+                .spec(spec())
+                .header("Authorization", accessToken)
                 .when()
                 .delete(USER_DATA)
                 .then().log().all();
@@ -35,9 +44,9 @@ public class Steps extends Constants {
     }
 
     @Step("Создать пользователя")
-    protected ValidatableResponse createUserString(UserData user) {
+    protected ValidatableResponse createUserString(UserData user) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .header("Content-type", "application/json")
+                .spec(spec())
                 .body(user.buildJSONToString())
                 .when()
                 .post(USER_REGISTER)
@@ -46,9 +55,9 @@ public class Steps extends Constants {
     }
 
     @Step("Авторизоваться")
-    protected ValidatableResponse login(UserData loginData) {
+    protected ValidatableResponse login(UserData loginData) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .header("Content-type", "application/json")
+                .spec(spec())
                 .body(loginData.buildJSONToString())
                 .when()
                 .post(USER_LOGIN)
@@ -57,10 +66,10 @@ public class Steps extends Constants {
     }
 
     @Step("Обновить данные пользователя")
-    protected ValidatableResponse updateUserData(UserData userData, String accessToken) {
+    protected ValidatableResponse updateUserData(UserData userData, String accessToken) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .auth().oauth2(accessToken)
-                .header("Content-type", "application/json")
+                .spec(spec())
+                .header("Authorization", accessToken)
                 .body(userData.buildJSONToString())
                 .when()
                 .patch(USER_DATA)
@@ -69,9 +78,9 @@ public class Steps extends Constants {
     }
 
     @Step("Выйти из системы")
-    protected ValidatableResponse logout(String refreshToken) {
+    protected ValidatableResponse logout(String refreshToken) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .header("Content-type", "application/json")
+                .spec(spec())
                 .body("{\"token\": " + "\"" + refreshToken + "\"}")
                 .when()
                 .post(USER_LOGOUT)
@@ -80,9 +89,9 @@ public class Steps extends Constants {
     }
 
     @Step("Получить значения ингридиентов")
-    protected ValidatableResponse getIngredients() {
+    protected ValidatableResponse getIngredients() throws InterruptedException {
         ValidatableResponse response = given()
-                .header("Content-type", "application/json")
+                .spec(spec())
                 .when()
                 .get(INGREDIENTS)
                 .then();
@@ -90,9 +99,9 @@ public class Steps extends Constants {
     }
 
     @Step("Создать заказ без авторизации")
-    protected ValidatableResponse createOrderUnauthorized(OrderData orderData) {
+    protected ValidatableResponse createOrderUnauthorized(OrderData orderData) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .header("Content-type", "application/json")
+                .spec(spec())
                 .body(orderData)
                 .when()
                 .post(ORDERS)
@@ -101,10 +110,10 @@ public class Steps extends Constants {
     }
 
     @Step("Создать заказ с авторизацией")
-    protected ValidatableResponse createOrderAuthorized(String accessToken, OrderData orderData) {
+    protected ValidatableResponse createOrderAuthorized(String accessToken, OrderData orderData) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .auth().oauth2(accessToken)
-                .header("Content-type", "application/json")
+                .spec(spec())
+                .header("Authorization", accessToken)
                 .body(orderData)
                 .when()
                 .post(ORDERS)
@@ -113,10 +122,10 @@ public class Steps extends Constants {
     }
 
     @Step("Получить список заказов")
-    protected ValidatableResponse getOrders(String accessToken) {
+    protected ValidatableResponse getOrders(String accessToken) throws InterruptedException {
         ValidatableResponse response = given().log().all()
-                .auth().oauth2(accessToken)
-                .header("Content-type", "application/json")
+                .spec(spec())
+                .header("Authorization", accessToken)
                 .when()
                 .get(ORDERS)
                 .then().log().all();
