@@ -1,11 +1,11 @@
-package site.nomoreparties.stellarburgers.helpers;
+package helpers;
 
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import site.nomoreparties.stellarburgers.clients.OrderData;
-import site.nomoreparties.stellarburgers.clients.UserData;
+import clients.OrderData;
+import clients.UserData;
 
 import static io.restassured.RestAssured.given;
 

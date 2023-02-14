@@ -1,10 +1,10 @@
-package site.nomoreparties.stellarburgers.helpers;
+package helpers;
 
 import com.github.javafaker.Faker;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
-import site.nomoreparties.stellarburgers.clients.OrderData;
-import site.nomoreparties.stellarburgers.clients.UserData;
+import clients.OrderData;
+import clients.UserData;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package site.nomoreparties.stellarburgers.clients;
+package clients;
 
 import lombok.*;
 

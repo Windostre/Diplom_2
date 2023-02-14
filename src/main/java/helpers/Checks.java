@@ -1,4 +1,4 @@
-package site.nomoreparties.stellarburgers.helpers;
+package helpers;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;

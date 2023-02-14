@@ -4,10 +4,10 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
-import site.nomoreparties.stellarburgers.clients.OrderData;
-import site.nomoreparties.stellarburgers.helpers.Checks;
-import site.nomoreparties.stellarburgers.helpers.Steps;
-import site.nomoreparties.stellarburgers.helpers.Utils;
+import clients.OrderData;
+import helpers.Checks;
+import helpers.Steps;
+import helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

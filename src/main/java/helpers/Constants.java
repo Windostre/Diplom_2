@@ -1,4 +1,4 @@
-package site.nomoreparties.stellarburgers.helpers;
+package helpers;
 
 public class Constants {
     protected final String BURGER_BASE_URI = "https://stellarburgers.nomoreparties.site";
