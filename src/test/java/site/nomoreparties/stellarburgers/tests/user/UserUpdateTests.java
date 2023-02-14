@@ -1,5 +1,9 @@
 package site.nomoreparties.stellarburgers.tests.user;
 
+import clients.UserData;
+import helpers.Checks;
+import helpers.Steps;
+import helpers.Utils;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
@@ -7,10 +11,6 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import clients.UserData;
-import helpers.Checks;
-import helpers.Steps;
-import helpers.Utils;
 
 public class UserUpdateTests extends Steps {
     private final Utils utils = new Utils();

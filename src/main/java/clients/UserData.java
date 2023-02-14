@@ -16,11 +16,8 @@ public class UserData {
 
     @Getter(AccessLevel.NONE)
     private final List<String> builder = new ArrayList<>(); // для создания шаблона объекта
-
     private String email;
-
     private String password;
-
     private String name;
 
     public UserData addEmail(String email) {

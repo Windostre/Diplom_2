@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 public class OrderData {
-
     private List<String> ingredients;
 
 

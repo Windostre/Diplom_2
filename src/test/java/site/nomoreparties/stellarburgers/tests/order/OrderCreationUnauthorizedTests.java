@@ -1,13 +1,13 @@
 package site.nomoreparties.stellarburgers.tests.order;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.ValidatableResponse;
-import org.junit.Test;
 import clients.OrderData;
 import helpers.Checks;
 import helpers.Steps;
 import helpers.Utils;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.ValidatableResponse;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;

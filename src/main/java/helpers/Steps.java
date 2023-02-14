@@ -1,11 +1,11 @@
 package helpers;
 
+import clients.OrderData;
+import clients.UserData;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import clients.OrderData;
-import clients.UserData;
 
 import static io.restassured.RestAssured.given;
 

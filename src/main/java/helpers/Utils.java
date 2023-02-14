@@ -1,10 +1,10 @@
 package helpers;
 
+import clients.OrderData;
+import clients.UserData;
 import com.github.javafaker.Faker;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
-import clients.OrderData;
-import clients.UserData;
 
 import java.util.ArrayList;
 import java.util.List;

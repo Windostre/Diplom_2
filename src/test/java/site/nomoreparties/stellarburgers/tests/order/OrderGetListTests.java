@@ -1,20 +1,21 @@
 package site.nomoreparties.stellarburgers.tests.order;
 
+import clients.OrderData;
+import clients.UserData;
+import helpers.Checks;
+import helpers.Steps;
+import helpers.Utils;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
-import clients.OrderData;
-import clients.UserData;
-import helpers.Checks;
-import helpers.Steps;
-import helpers.Utils;
 
 import java.util.List;
 
 public class OrderGetListTests extends Steps {
+
     private final Utils utils = new Utils();
     private final Checks check = new Checks();
     String createdOrderId;
